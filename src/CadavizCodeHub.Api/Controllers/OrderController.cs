@@ -42,8 +42,6 @@ namespace CadavizCodeHub.Api.Controllers
         [ProducesResponseType(typeof(ApplicationErrorResponse), StatusCodes.Status500InternalServerError)]
         public OrderResponse GetOrder(Guid id)
         {
-            throw new NotImplementedException();
-
             var order = _orderCreationService.GetOrder(id);
             return order.Map();
         }
