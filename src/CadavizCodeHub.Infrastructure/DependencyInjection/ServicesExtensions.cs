@@ -22,6 +22,8 @@ namespace CadavizCodeHub.Infrastructure.DependencyInjection
 
         private static IServiceCollection AddRepositories(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddScoped<IOrderCrudRepository, OrderRepository>();
+
             var dbSettings = configuration.GetRequiredSection("DatabaseSettings").Get<DatabaseSettings>();
             services.AddSingleton(dbSettings);
 
@@ -30,6 +32,7 @@ namespace CadavizCodeHub.Infrastructure.DependencyInjection
 
         private static void ConfigureDatabase()
         {
+            DatabaseConfiguration.RegisterClassMap();
         }
     }
 }

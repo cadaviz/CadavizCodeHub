@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using CadavizCodeHub.Domain.Repositories;
 using CadavizCodeHub.Domain.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,8 @@ namespace CadavizCodeHub.Domain.DependencyInjection
 
         private static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddScoped<IOrderService, OrderService>();
+
             return services;
         }
     }
