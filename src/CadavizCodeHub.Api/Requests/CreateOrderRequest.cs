@@ -6,5 +6,5 @@ namespace CadavizCodeHub.Api.Requests
     /// Data necessary to create a new order
     /// </summary>
     /// <param name="Items">List of order items</param>
-    public record CreateOrderRequest(IList<CreateOrderRequestItem> Items);
+    public record CreateOrderRequest(IEnumerable<CreateOrderRequestItem> Items) : IRequest;
 }

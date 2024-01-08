@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using CadavizCodeHub.Domain.Repositories;
 using CadavizCodeHub.Framework.Domain;
@@ -7,8 +8,9 @@ using MongoDB.Driver;
 
 namespace CadavizCodeHub.Infrastructure.Repositories
 {
+    [ExcludeFromCodeCoverage]
     internal abstract class MongodbRepositoryBase<T> : IDisposable
-        where T : IEntity
+        where T : class, IEntity
     {
         private readonly IMongoClient _client;
         private readonly IMongoDatabase _database;
@@ -21,7 +23,7 @@ namespace CadavizCodeHub.Infrastructure.Repositories
             _collection = _database.GetCollection<T>(collectionName);
         }
 
-        protected Task<T> GetByIdAsync(Guid id)
+        protected Task<T?> GetByIdAsync(Guid id)
         {
             return _collection.Find(filter => filter.Id == id)
                               .SingleOrDefaultAsync();

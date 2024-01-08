@@ -1,4 +1,5 @@
-﻿using CadavizCodeHub.Api.Setup.DependencyInjection;
+﻿using CadavizCodeHub.Api.Exceptions;
+using CadavizCodeHub.Api.Setup.DependencyInjection;
 using CadavizCodeHub.Domain.DependencyInjection;
 using CadavizCodeHub.Infrastructure.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
@@ -18,11 +19,15 @@ namespace CadavizCodeHub.Api.Setup
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.Filters.Add<HttpResponseExceptionFilter>();
+            });
+
             services.AddEndpointsApiExplorer();
 
             services.AddSettings(Configuration);
-            
+
             services.ConfigureSerialization(Configuration);
             services.ConfigureSwagger(Configuration);
 
@@ -35,6 +40,7 @@ namespace CadavizCodeHub.Api.Setup
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

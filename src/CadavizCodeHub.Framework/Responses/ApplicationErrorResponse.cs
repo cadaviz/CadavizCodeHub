@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 
 namespace CadavizCodeHub.Framework.Responses
 {
@@ -8,6 +7,6 @@ namespace CadavizCodeHub.Framework.Responses
     /// </summary>
     /// <param name="StatusCode">Response http status code</param>
     /// <param name="Messages">List of messages</param>
-    public record ApplicationErrorResponse(HttpStatusCode StatusCode, IList<ApplicationMessage> Messages);
+    public record ApplicationErrorResponse(int StatusCode, IEnumerable<ApplicationMessage> Messages);
     
 }

@@ -9,6 +9,6 @@ namespace CadavizCodeHub.Domain.Repositories
     {
         virtual static string DatabaseName => "default";
 
-        Task<T> GetByIdAsync(Guid id);
+        Task<T?> GetByIdAsync(Guid id);
     }
 }

@@ -6,5 +6,5 @@ namespace CadavizCodeHub.Api.Responses
     /// Order representation
     /// </summary>
     /// <param name="Items">List of order items</param>
-    public record OrderResponse(IList<OrderResponseItem> Items);
+    public record OrderResponse(IList<OrderResponseItem> Items) : IResponse;
 }
