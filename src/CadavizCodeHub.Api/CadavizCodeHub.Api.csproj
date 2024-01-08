@@ -12,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.8.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.14" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.12" />
@@ -22,5 +23,11 @@
     <ProjectReference Include="..\CadavizCodeHub.Framework\CadavizCodeHub.Framework.csproj" />
     <ProjectReference Include="..\CadavizCodeHub.Infrastructure\CadavizCodeHub.Infrastructure.csproj" />
   </ItemGroup>
+
+	<ItemGroup>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+			<_Parameter1>CadavizCodeHub.Unit</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
 
 </Project>
