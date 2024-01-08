@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using CadavizCodeHub.Domain.Entities;
@@ -7,10 +8,9 @@ using MongoDB.Driver;
 
 namespace CadavizCodeHub.Infrastructure.Repositories
 {
+    [ExcludeFromCodeCoverage]
     internal class OrderRepository : MongodbRepositoryBase<Order>, IOrderReadRepository, IOrderCrudRepository
     {
-        //TODO: dar um dinamismo
-        //TODO: Implementar unit of work
         public OrderRepository(DatabaseSettings databaseSettings) : base(databaseSettings, "order") { }
 
         public new async Task<Order> CreateAsync(Order order)
@@ -20,7 +20,7 @@ namespace CadavizCodeHub.Infrastructure.Repositories
             return order;
         }
 
-        public new Task<Order> GetByIdAsync(Guid id)
+        public new Task<Order?> GetByIdAsync(Guid id)
         {
             return base.GetByIdAsync(id);
         }

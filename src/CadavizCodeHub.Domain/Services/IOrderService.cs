@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Threading.Tasks;
 using CadavizCodeHub.Domain.Entities;
 
 namespace CadavizCodeHub.Domain.Services
 {
     public interface IOrderService
     {
-        Order CreateOrder(Order order);
+        Task<Order> CreateOrderAsync(Order order);
 
-        Order GetOrder(Guid id);
+        Task<Order?> GetOrderAsync(Guid id);
     }
 }
