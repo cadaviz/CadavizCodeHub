@@ -1,8 +1,8 @@
 # Cadaviz - CodeHub
 
 Welcome to Cadaviz CodeHub project.
-Esse é um projeto com o objetivo de reunir boas práticas de programação, algumas bibliotecas e classes de código útil.
-Além disso, visa fomentar a discussão e evolução de práticas de programação.
+The main object of this project is to bring together good programming practices, some awesome libraries and useful code classes.
+Furthermore, it aims to encourage the discussion and evolution of programming good practices.
 
 ## Contributing
 
@@ -20,7 +20,6 @@ If you have any question, please feel free to contact me.
 [fork]: https://help.github.com/articles/fork-a-repo/
 [branch]: https://help.github.com/articles/creating-and-deleting-branches-within-your-repository
 [pr]: https://help.github.com/articles/using-pull-requests/
-[ProjectDocs]: https://farfetch.atlassian.net/wiki/spaces/OWC/pages/1637890690/Lookup+Service
 
 ## Built with
 
@@ -30,9 +29,7 @@ This service was built with the following main technologies:
 | :--------| :-----------|
 | [Microsoft ASP.NET Core 7.0](https://dotnet.microsoft.com/apps/aspnet) | A framework for building web apps and services with .NET and C# |
 | [Swagger](https://github.com/domaindrivendev/Swashbuckle.AspNetCore) | Swagger tools for documenting APIs built on ASP.NET Core |
-| [MongoDB]() | Non-Relational database |
-| [MongoDB]() | Non-Relational database |
-
+| [MongoDB](https://www.mongodb.com/) | Non-Relational database |
 
 ## Documentation and diagrams
 
@@ -46,10 +43,8 @@ Some tools that can be used to edit these diagrams:
 
 ### How to open Diagrams in Visual Studio
 
-Como ver os diagramas.
+To view the diagrams you need to have the [PlantUML extension](https://marketplace.visualstudio.com/items?itemName=Vincent-Dagpin.PlantUMLEditor) installed.
+You will also need GraphViz and Java.
 
-PlantUML extension.
-Para visualizar os diagramas é necessário ter o Java e o GraphViz instalados.
-
-For windows, you can go here to download GraphViz for Windows. http://www.graphviz.org/download/
-We can assume that you already have Java installed for Windows 10, but if you don't, you will need to download Java for Windows.  https://www.java.com/download/ie_manual.jsp
+GraphViz: For windows, you can go [here](http://www.graphviz.org/download/) to download. 
+Java: You can download [here](https://www.java.com/download/ie_manual.jsp).
