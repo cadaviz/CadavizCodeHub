@@ -1,0 +1,25 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+title Cadaviz Create Order Domain Model
+
+class Order {
+  Item[] Items
+  decimal Total
+}
+
+class Item {
+  Product Product
+  int Quantity
+  decimal Total
+}
+
+class Product {
+  string Description
+  decimal Price
+}
+
+Order --> Item : 1 has 1..*
+Item --> Product : 1 has 1
+
+@enduml
