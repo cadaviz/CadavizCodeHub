@@ -10,6 +10,7 @@ using CadavizCodeHub.Framework.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Serilog;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace CadavizCodeHub.Api.Controllers
@@ -20,13 +21,10 @@ namespace CadavizCodeHub.Api.Controllers
     public class OrderController : ControllerBase
     {
         private const string controllerName = "order";
-        private readonly ILogger<OrderController> _logger;
         private readonly IOrderService _orderCreationService;
 
-        public OrderController(ILogger<OrderController> logger,
-                               IOrderService orderCreationService) : base()
+        public OrderController(IOrderService orderCreationService) : base()
         {
-            _logger = logger;
             _orderCreationService = orderCreationService;
         }
 
@@ -41,6 +39,7 @@ namespace CadavizCodeHub.Api.Controllers
         [ProducesResponseType(typeof(ApplicationErrorResponse), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetOrder(Guid id)
         {
+            Log.Information("vamos");
             var order = await _orderCreationService.GetOrderAsync(id);
 
             return OkOrNoContent(order.MapNullable());

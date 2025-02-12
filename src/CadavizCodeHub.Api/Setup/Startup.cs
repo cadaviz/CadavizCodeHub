@@ -3,6 +3,7 @@ using CadavizCodeHub.Api.Setup.DependencyInjection;
 using CadavizCodeHub.Domain.DependencyInjection;
 using CadavizCodeHub.Infrastructure.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,6 +20,8 @@ namespace CadavizCodeHub.Api.Setup
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.ConfigureLogs(Configuration);
+
             services.AddControllers(options =>
             {
                 options.Filters.Add<HttpResponseExceptionFilter>();
@@ -35,7 +38,7 @@ namespace CadavizCodeHub.Api.Setup
             services.ConfigureInfrastructure(Configuration);
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseHttpsRedirection();
             app.UseRouting();
@@ -46,6 +49,7 @@ namespace CadavizCodeHub.Api.Setup
                 endpoints.MapControllers();
             });
 
+            app.ConfigureLogs();
             app.ConfigureSwagger();
         }
     }

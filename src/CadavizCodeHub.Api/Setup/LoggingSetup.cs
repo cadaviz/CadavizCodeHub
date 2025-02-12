@@ -1,0 +1,61 @@
+﻿using CadavizCodeHub.Api.Setup.Settings;
+using CadavizCodeHub.Framework.Extensions;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Events;
+using System;
+using System.Diagnostics.CodeAnalysis;
+
+namespace CadavizCodeHub.Api.Setup
+{
+    [ExcludeFromCodeCoverage]
+    public static class LoggingSetup
+    {
+        public static IServiceCollection ConfigureLogs(this IServiceCollection services, IConfiguration configuration)
+        {
+            var loggingSettings = configuration.GetSection("LoggingSettings").Get<LoggingSettings>();
+
+            ArgumentNullException.ThrowIfNull(loggingSettings);
+
+            var loggerConfiguration = new LoggerConfiguration()
+                .MinimumLevel.Is(EnumExtensions.Convert<Settings.LogLevel, LogEventLevel>(loggingSettings.MinimumLogLevel, LogEventLevel.Information))
+                .Enrich.FromLogContext();
+
+            if (loggingSettings.WriteLogTo.HasFlag(WriteLogTo.Console))
+            {
+                loggerConfiguration.WriteTo.Console(outputTemplate: loggingSettings.OutputTemplate);
+            }
+
+            if (loggingSettings.WriteLogTo.HasFlag(WriteLogTo.File))
+            {
+                loggerConfiguration.WriteTo.File(
+                    path: loggingSettings.FileSettings.Path,
+                    outputTemplate: loggingSettings.OutputTemplate,
+                    rollingInterval: EnumExtensions.Convert<LogRollingInterval, RollingInterval>(loggingSettings.FileSettings.RollingInterval, RollingInterval.Day),
+                    retainedFileCountLimit: loggingSettings.FileSettings.RetainedFileCountLimit);
+            }
+
+            loggerConfiguration.CreateLogger();
+
+            //services.AddSingleton(Log.Logger);
+            services.AddLogging(loggingBuilder =>
+            {
+                //loggingBuilder.ClearProviders();
+                //loggingBuilder.AddSerilog(Log.Logger);
+                loggingBuilder.AddSerilog();
+            });
+
+            return services;
+        }
+
+        public static IApplicationBuilder ConfigureLogs(this IApplicationBuilder app)
+        {
+            app.UseSerilogRequestLogging();
+
+            return app;
+        }
+    }
+}

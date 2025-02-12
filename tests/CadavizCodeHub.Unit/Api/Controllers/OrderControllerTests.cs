@@ -85,7 +85,7 @@ namespace CadavizCodeHub.Unit.Api.Controllers
             features.Set<IHttpRequestFeature>(httpRequestFeature);
             features.Set<IHttpResponseFeature>(new HttpResponseFeature());
 
-            var controller = new OrderController(_logger, _orderService)
+            var controller = new OrderController(_orderService)
             {
                 ControllerContext = new ControllerContext
                 {
