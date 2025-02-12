@@ -20,7 +20,7 @@ namespace CadavizCodeHub.Framework.Tests.Extensions
         public static AndConstraint<StringAssertions<TAssertions>> BeValidUri<TAssertions>(this StringAssertions<TAssertions> parent, string because = "", params object[] becauseArgs)
         where TAssertions : StringAssertions<TAssertions>
         {
-            Execute.Assertion
+            AssertionChain.GetOrCreate()
                 .ForCondition(Uri.IsWellFormedUriString(parent.Subject, UriKind.RelativeOrAbsolute))
                 .BecauseOf(because, becauseArgs)
                 .FailWith($"Expected '{parent.Subject}' to be a valid URI, but it's not.");
