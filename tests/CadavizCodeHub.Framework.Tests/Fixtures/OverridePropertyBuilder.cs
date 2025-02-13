@@ -32,7 +32,7 @@ namespace CadavizCodeHub.Framework.Tests.Fixtures
             if (pi.ParameterType != typeof(TProp) || pi.Name != camelCase)
                 return new NoSpecimen();
 
-            return _value;
+            return _value!;
         }
     }
 }

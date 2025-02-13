@@ -1,11 +1,9 @@
-﻿using System;
+﻿using CadavizCodeHub.Domain.Entities;
+using CadavizCodeHub.Domain.Repositories;
+using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using CadavizCodeHub.Domain.Entities;
-using CadavizCodeHub.Domain.Repositories;
-using MongoDB.Driver;
 
 namespace CadavizCodeHub.Infrastructure.Repositories
 {
@@ -24,14 +22,6 @@ namespace CadavizCodeHub.Infrastructure.Repositories
         public new Task<Order?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             return base.GetByIdAsync(id, cancellationToken);
-        }
-
-        public async Task<Order?> GetByIdAsync(CancellationToken cancellationToken)
-        {
-            var filter = Builders<Order>.Filter.Eq(r => r.Id, Guid.NewGuid());
-            var a = await base.GetByFilterAsync(filter, cancellationToken);
-
-            return a.SingleOrDefault();
         }
 
         public Task<Order> UpdateAsync(Order order, CancellationToken cancellationToken) => throw new NotImplementedException();

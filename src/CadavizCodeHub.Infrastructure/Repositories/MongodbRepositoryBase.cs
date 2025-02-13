@@ -30,10 +30,10 @@ namespace CadavizCodeHub.Infrastructure.Repositories
             ArgumentNullException.ThrowIfNull(_collection);
         }
 
-        protected Task<T> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+        protected Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             return _collection.Find(filter => filter.Id == id)
-                              .SingleOrDefaultAsync(cancellationToken);
+                              .SingleOrDefaultAsync(cancellationToken) as Task<T?>;
         }
 
         protected async Task<IEnumerable<T>> GetByFilterAsync(FilterDefinition<T> filter, CancellationToken cancellationToken)
