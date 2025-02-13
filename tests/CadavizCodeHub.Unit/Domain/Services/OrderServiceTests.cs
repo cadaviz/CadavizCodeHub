@@ -1,28 +1,25 @@
-﻿using System;
-using System.Threading.Tasks;
-using AutoFixture;
+﻿using AutoFixture;
 using CadavizCodeHub.Domain.Entities;
 using CadavizCodeHub.Domain.Repositories;
 using CadavizCodeHub.Domain.Services;
 using CadavizCodeHub.Framework.Tests.Tools;
 using FluentAssertions;
-using Microsoft.Extensions.Logging;
 using NSubstitute;
+using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace CadavizCodeHub.Unit.Domain.Services
 {
     public class OrderServiceTests : TestsBase
     {
-        private readonly ILogger<IOrderService> _logger;
         private readonly IOrderCrudRepository _orderRepository;
         private readonly IOrderService _orderService;
 
         public OrderServiceTests()
         {
-            _logger = Substitute.For<ILogger<IOrderService>>();
             _orderRepository = Substitute.For<IOrderCrudRepository>();
-            _orderService = new OrderService(_logger, _orderRepository);
+            _orderService = new OrderService( _orderRepository);
         }
 
         [Fact]

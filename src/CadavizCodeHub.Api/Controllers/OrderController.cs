@@ -1,7 +1,4 @@
-﻿using System;
-using System.Net.Mime;
-using System.Threading.Tasks;
-using CadavizCodeHub.Api.Mappers;
+﻿using CadavizCodeHub.Api.Mappers;
 using CadavizCodeHub.Api.Requests;
 using CadavizCodeHub.Api.Responses;
 using CadavizCodeHub.Api.Validations;
@@ -9,8 +6,10 @@ using CadavizCodeHub.Domain.Services;
 using CadavizCodeHub.Framework.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Filters;
+using System;
+using System.Net.Mime;
+using System.Threading.Tasks;
 
 namespace CadavizCodeHub.Api.Controllers
 {
@@ -20,13 +19,10 @@ namespace CadavizCodeHub.Api.Controllers
     public class OrderController : ControllerBase
     {
         private const string controllerName = "order";
-        private readonly ILogger<OrderController> _logger;
         private readonly IOrderService _orderCreationService;
 
-        public OrderController(ILogger<OrderController> logger,
-                               IOrderService orderCreationService) : base()
+        public OrderController(IOrderService orderCreationService) : base()
         {
-            _logger = logger;
             _orderCreationService = orderCreationService;
         }
 

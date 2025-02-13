@@ -12,21 +12,27 @@ namespace CadavizCodeHub.Infrastructure.Repositories
     internal abstract class MongodbRepositoryBase<T> : IDisposable
         where T : class, IEntity
     {
-        private readonly IMongoClient _client;
+        private bool _disposed = false;
+        private readonly MongoClient _client;
         private readonly IMongoDatabase _database;
         protected readonly IMongoCollection<T> _collection;
 
         protected MongodbRepositoryBase(DatabaseSettings databaseSettings, string collectionName)
         {
             _client = new MongoClient(databaseSettings.ConnectionString);
+            ArgumentNullException.ThrowIfNull(_client, nameof(_client));
+
             _database = _client.GetDatabase(databaseSettings.DatabaseName);
+            ArgumentNullException.ThrowIfNull(_database, nameof(_database));
+
             _collection = _database.GetCollection<T>(collectionName);
+            ArgumentNullException.ThrowIfNull(_collection, nameof(_collection));
         }
 
         protected Task<T?> GetByIdAsync(Guid id)
         {
             return _collection.Find(filter => filter.Id == id)
-                              .SingleOrDefaultAsync();
+                              .SingleOrDefaultAsync<T?>();
         }
 
         protected async Task<IEnumerable<T>> GetByFilterAsync(FilterDefinition<T> filter)
@@ -41,6 +47,26 @@ namespace CadavizCodeHub.Infrastructure.Repositories
 
         public void Dispose()
         {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+                return;
+
+            if (disposing)
+            {
+                _client.Dispose();
+                _database.Client.Dispose();
+            }
+
+            _disposed = true;
+        }
+
+        ~MongodbRepositoryBase()
+        {
+            Dispose(false);
         }
     }
 }

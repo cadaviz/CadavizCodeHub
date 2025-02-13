@@ -14,8 +14,11 @@ namespace CadavizCodeHub.Api.Mappers
 
         internal static Item Map(this CreateOrderRequestItem item)
         {
-            return new Item(product: item.Product.Map(),
-                            quantity: item.Quantity);
+            return new Item
+            {
+                Product = item.Product.Map(),
+                Quantity = item.Quantity
+            };
         }
     }
 }
