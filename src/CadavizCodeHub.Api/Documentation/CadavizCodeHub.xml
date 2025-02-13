@@ -4,14 +4,15 @@
         <name>CadavizCodeHub.Api</name>
     </assembly>
     <members>
-        <member name="M:CadavizCodeHub.Api.Controllers.OrderController.GetOrder(System.Guid)">
+        <member name="M:CadavizCodeHub.Api.Controllers.OrderController.GetOrder(System.Guid,System.Threading.CancellationToken)">
             <summary>
             Get an Order
             </summary>
             <param name="id" example="ef310f03-b3ce-45ef-b6e3-dd641840fb90">Order identifier</param>
+            <param name="cancellationToken">The cancellation token</param>
             <returns>Requested order</returns>
         </member>
-        <member name="M:CadavizCodeHub.Api.Controllers.OrderController.CreateOrder(CadavizCodeHub.Api.Requests.CreateOrderRequest)">
+        <member name="M:CadavizCodeHub.Api.Controllers.OrderController.CreateOrder(CadavizCodeHub.Api.Requests.CreateOrderRequest,System.Threading.CancellationToken)">
              <summary>
              Create a new order
              </summary>
@@ -33,6 +34,7 @@
                  }
              </remarks>
              <param name="request">The new order request body</param>
+             <param name="cancellationToken">The cancellation token</param>
         </member>
         <member name="T:CadavizCodeHub.Api.Requests.CreateOrderRequest">
             <summary>

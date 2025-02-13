@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 using System.Threading.Tasks;
 using CadavizCodeHub.Domain.Repositories;
 using CadavizCodeHub.Framework.Domain;
@@ -20,29 +21,29 @@ namespace CadavizCodeHub.Infrastructure.Repositories
         protected MongodbRepositoryBase(DatabaseSettings databaseSettings, string collectionName)
         {
             _client = new MongoClient(databaseSettings.ConnectionString);
-            ArgumentNullException.ThrowIfNull(_client, nameof(_client));
+            ArgumentNullException.ThrowIfNull(_client);
 
             _database = _client.GetDatabase(databaseSettings.DatabaseName);
-            ArgumentNullException.ThrowIfNull(_database, nameof(_database));
+            ArgumentNullException.ThrowIfNull(_database);
 
             _collection = _database.GetCollection<T>(collectionName);
-            ArgumentNullException.ThrowIfNull(_collection, nameof(_collection));
+            ArgumentNullException.ThrowIfNull(_collection);
         }
 
-        protected Task<T?> GetByIdAsync(Guid id)
+        protected Task<T> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             return _collection.Find(filter => filter.Id == id)
-                              .SingleOrDefaultAsync<T?>();
+                              .SingleOrDefaultAsync(cancellationToken);
         }
 
-        protected async Task<IEnumerable<T>> GetByFilterAsync(FilterDefinition<T> filter)
+        protected async Task<IEnumerable<T>> GetByFilterAsync(FilterDefinition<T> filter, CancellationToken cancellationToken)
         {
-            return (await _collection.FindAsync(filter)).ToEnumerable();
+            return (await _collection.FindAsync(filter, cancellationToken: cancellationToken)).ToEnumerable(cancellationToken: cancellationToken);
         }
 
-        protected Task CreateAsync(T entity)
+        protected Task CreateAsync(T entity, CancellationToken cancellationToken)
         {
-            return _collection.InsertOneAsync(entity);
+            return _collection.InsertOneAsync(entity, cancellationToken: cancellationToken);
         }
 
         public void Dispose()

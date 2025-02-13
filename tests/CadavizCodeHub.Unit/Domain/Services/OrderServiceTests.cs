@@ -6,6 +6,7 @@ using CadavizCodeHub.Framework.Tests.Tools;
 using FluentAssertions;
 using NSubstitute;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -27,10 +28,12 @@ namespace CadavizCodeHub.Unit.Domain.Services
         {
             // Arrange
             var order = Fixture.Create<Order>();
-            _orderRepository.CreateAsync(order).Returns(order);
+            _orderRepository
+                .CreateAsync(order, Arg.Any<CancellationToken>())
+                .Returns(order);
 
             // Act
-            await _orderService.CreateOrderAsync(order);
+            await _orderService.CreateOrderAsync(order, CancellationToken.None);
 
             // Assert
             order.Should().NotBeNull();
@@ -41,10 +44,12 @@ namespace CadavizCodeHub.Unit.Domain.Services
         {
             // Arrange
             var order = Fixture.Create<Order>();
-            _orderRepository.GetByIdAsync(order.Id).Returns(order);
+            _orderRepository
+                .GetByIdAsync(order.Id, Arg.Any<CancellationToken>())
+                .Returns(order);
 
             // Act
-           var result = await _orderService.GetOrderAsync(order.Id);
+           var result = await _orderService.GetOrderAsync(order.Id, CancellationToken.None);
 
             // Assert
             result.Should().NotBeNull();
@@ -55,10 +60,12 @@ namespace CadavizCodeHub.Unit.Domain.Services
         public async Task GetOrderAsync_WithoutAnExistingOrder_ReturnsNull()
         {
             // Arrange
-            _orderRepository.GetByIdAsync(Arg.Any<Guid>()).Returns((Order?)null);
+            _orderRepository
+                .GetByIdAsync(Arg.Any<Guid>(), Arg.Any<CancellationToken>())
+                .Returns((Order?)null);
 
             // Act
-            var result = await _orderService.GetOrderAsync(Guid.NewGuid());
+            var result = await _orderService.GetOrderAsync(Guid.NewGuid(), CancellationToken.None);
 
             // Assert
             result.Should().BeNull();

@@ -1,6 +1,7 @@
 ﻿using CadavizCodeHub.Domain.Entities;
 using CadavizCodeHub.Domain.Repositories;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CadavizCodeHub.Domain.Services
@@ -14,14 +15,14 @@ namespace CadavizCodeHub.Domain.Services
             _orderRepository = orderRepository;
         }
 
-        public Task<Order> CreateOrderAsync(Order order)
+        public Task<Order> CreateOrderAsync(Order order, CancellationToken cancellationToken)
         {
-            return _orderRepository.CreateAsync(order);
+            return _orderRepository.CreateAsync(order, cancellationToken);
         }
 
-        public Task<Order?> GetOrderAsync(Guid id)
+        public Task<Order?> GetOrderAsync(Guid id, CancellationToken cancellationToken)
         {
-            return _orderRepository.GetByIdAsync(id);
+            return _orderRepository.GetByIdAsync(id, cancellationToken);
         }
     }
 }

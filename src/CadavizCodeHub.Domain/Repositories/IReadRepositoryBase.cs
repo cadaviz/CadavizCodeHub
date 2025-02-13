@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System;
 using CadavizCodeHub.Framework.Domain;
+using System.Threading;
 
 namespace CadavizCodeHub.Domain.Repositories
 {
@@ -9,6 +10,6 @@ namespace CadavizCodeHub.Domain.Repositories
     {
         virtual static string DatabaseName => "default";
 
-        Task<T?> GetByIdAsync(Guid id);
+        Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
     }
 }

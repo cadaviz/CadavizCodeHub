@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -35,10 +36,10 @@ namespace CadavizCodeHub.Unit.Api.Controllers
             // Arrange
             var request = Fixture.Create<CreateOrderRequest>();
             var order = Fixture.Create<Order>();
-            _orderService.CreateOrderAsync(Arg.Any<Order>()).Returns(order);
+            _orderService.CreateOrderAsync(Arg.Any<Order>(), Arg.Any<CancellationToken>()).Returns(order);
 
             // Act
-            var result = await _controller.CreateOrder(request);
+            var result = await _controller.CreateOrder(request, CancellationToken.None);
 
             // Assert
             var createdResult = result as CreatedResult;
@@ -57,7 +58,7 @@ namespace CadavizCodeHub.Unit.Api.Controllers
             var request = Fixture.Create<CreateOrderRequest>() with { Items = Enumerable.Empty<CreateOrderRequestItem>() };
 
             // Act
-            var result = await _controller.CreateOrder(request);
+            var result = await _controller.CreateOrder(request, CancellationToken.None);
 
             // Assert
             var badRequestObjectResult = result as BadRequestObjectResult;

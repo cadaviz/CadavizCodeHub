@@ -27,7 +27,7 @@ namespace CadavizCodeHub.Infrastructure.DependencyInjection
 
             var dbSettings = configuration.GetRequiredSection("DatabaseSettings").Get<DatabaseSettings>();
 
-            ArgumentNullException.ThrowIfNull(dbSettings, nameof(dbSettings));
+            ArgumentNullException.ThrowIfNull(dbSettings);
 
             services.AddSingleton(dbSettings);
 
