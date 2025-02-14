@@ -2,15 +2,9 @@
 {
     public class Product
     {
-        protected Product() { }
+        public Product() { }
 
-        public Product(string description, decimal price) : this()
-        {
-            Description = description;
-            Price = price;
-        }
-
-        public string Description { get; }
-        public decimal Price { get; }
+        public required string Description { get; init; }
+        public required decimal Price { get; init; }
     }
 }

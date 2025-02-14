@@ -2,16 +2,10 @@
 {
     public class Item
     {
-        protected Item () { }
+        public Item() { }
 
-        public Item(Product product, int quantity) : this () 
-        {
-            Product = product;
-            Quantity = quantity;
-        }
-
-        public Product Product { get; }
-        public int Quantity { get; }
+        public required Product Product { get; init; }
+        public required int Quantity { get; init; }
         public decimal Total => Quantity * Product.Price;
     }
 }

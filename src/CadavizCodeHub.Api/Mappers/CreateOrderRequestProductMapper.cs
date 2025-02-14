@@ -7,8 +7,11 @@ namespace CadavizCodeHub.Api.Mappers
     {
         internal static Product Map(this CreateOrderRequestProduct product)
         {
-            return new Product(description: product.Description,
-                               price: product.Price);
+            return new Product
+            {
+                Description = product.Description,
+                Price = product.Price,
+            };
         }
     }
 }

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Threading.Tasks;
-using CadavizCodeHub.Domain.Entities;
+﻿using CadavizCodeHub.Domain.Entities;
 using CadavizCodeHub.Domain.Repositories;
-using MongoDB.Driver;
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CadavizCodeHub.Infrastructure.Repositories
 {
@@ -13,27 +12,19 @@ namespace CadavizCodeHub.Infrastructure.Repositories
     {
         public OrderRepository(DatabaseSettings databaseSettings) : base(databaseSettings, "order") { }
 
-        public new async Task<Order> CreateAsync(Order order)
+        public new async Task<Order> CreateAsync(Order order, CancellationToken cancellationToken)
         {
-            await base.CreateAsync(order);
+            await base.CreateAsync(order, cancellationToken);
 
             return order;
         }
 
-        public new Task<Order?> GetByIdAsync(Guid id)
+        public new Task<Order?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            return base.GetByIdAsync(id);
+            return base.GetByIdAsync(id, cancellationToken);
         }
 
-        public async Task<Order?> GetByIdAsync()
-        {
-            var filter = Builders<Order>.Filter.Eq(r => r.Id, Guid.NewGuid());
-            var a = await base.GetByFilterAsync(filter);
-
-            return a.SingleOrDefault();
-        }
-
-        public Task<Order> UpdateAsync(Order order) => throw new NotImplementedException();
-        public Task<Order> DeleteAsync(Guid id) => throw new NotImplementedException();
+        public Task<Order> UpdateAsync(Order order, CancellationToken cancellationToken) => throw new NotImplementedException();
+        public Task<Order> DeleteAsync(Guid id, CancellationToken cancellationToken) => throw new NotImplementedException();
     }
 }

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using AutoFixture.Kernel;
+using System;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using AutoFixture.Kernel;
 
 namespace CadavizCodeHub.Framework.Tests.Fixtures
 {
@@ -13,6 +13,9 @@ namespace CadavizCodeHub.Framework.Tests.Fixtures
 
         public OverridePropertyBuilder(Expression<Func<T, TProp>> expr, TProp value)
         {
+            ArgumentNullException.ThrowIfNull(expr, nameof(expr));
+            ArgumentNullException.ThrowIfNull(value, nameof(value));
+
             _propertyInfo = (expr.Body as MemberExpression)?.Member as PropertyInfo ??
                             throw new InvalidOperationException("invalid property expression");
             _value = value;
@@ -29,7 +32,7 @@ namespace CadavizCodeHub.Framework.Tests.Fixtures
             if (pi.ParameterType != typeof(TProp) || pi.Name != camelCase)
                 return new NoSpecimen();
 
-            return _value;
+            return _value!;
         }
     }
 }

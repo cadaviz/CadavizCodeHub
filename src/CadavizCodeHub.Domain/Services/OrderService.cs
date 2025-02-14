@@ -1,31 +1,28 @@
-﻿using System;
-using System.Threading.Tasks;
-using CadavizCodeHub.Domain.Entities;
+﻿using CadavizCodeHub.Domain.Entities;
 using CadavizCodeHub.Domain.Repositories;
-using Microsoft.Extensions.Logging;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CadavizCodeHub.Domain.Services
 {
     internal class OrderService : IOrderService
     {
-        private readonly ILogger<IOrderService> _logger;
         private readonly IOrderCrudRepository _orderRepository;
 
-        public OrderService(ILogger<IOrderService> logger,
-                            IOrderCrudRepository orderRepository)
+        public OrderService(IOrderCrudRepository orderRepository)
         {
-            _logger = logger;
             _orderRepository = orderRepository;
         }
 
-        public Task<Order> CreateOrderAsync(Order order)
+        public Task<Order> CreateOrderAsync(Order order, CancellationToken cancellationToken)
         {
-            return _orderRepository.CreateAsync(order);
+            return _orderRepository.CreateAsync(order, cancellationToken);
         }
 
-        public Task<Order?> GetOrderAsync(Guid id)
+        public Task<Order?> GetOrderAsync(Guid id, CancellationToken cancellationToken)
         {
-            return _orderRepository.GetByIdAsync(id);
+            return _orderRepository.GetByIdAsync(id, cancellationToken);
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using AutoFixture;
+﻿using AutoFixture;
 using CadavizCodeHub.Api.Controllers;
 using CadavizCodeHub.Api.Requests;
 using CadavizCodeHub.Api.Responses;
@@ -13,21 +11,21 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using NSubstitute;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace CadavizCodeHub.Unit.Api.Controllers
 {
     public class OrderControllerTests : TestsBase
     {
-        private readonly ILogger<OrderController> _logger;
         private readonly IOrderService _orderService;
         private readonly OrderController _controller;
 
         public OrderControllerTests()
         {
-            _logger = Substitute.For<ILogger<OrderController>>();
             _orderService = Substitute.For<IOrderService>();
             _controller = BuildController();
         }
@@ -38,10 +36,10 @@ namespace CadavizCodeHub.Unit.Api.Controllers
             // Arrange
             var request = Fixture.Create<CreateOrderRequest>();
             var order = Fixture.Create<Order>();
-            _orderService.CreateOrderAsync(Arg.Any<Order>()).Returns(order);
+            _orderService.CreateOrderAsync(Arg.Any<Order>(), Arg.Any<CancellationToken>()).Returns(order);
 
             // Act
-            var result = await _controller.CreateOrder(request);
+            var result = await _controller.CreateOrder(request, CancellationToken.None);
 
             // Assert
             var createdResult = result as CreatedResult;
@@ -60,7 +58,7 @@ namespace CadavizCodeHub.Unit.Api.Controllers
             var request = Fixture.Create<CreateOrderRequest>() with { Items = Enumerable.Empty<CreateOrderRequestItem>() };
 
             // Act
-            var result = await _controller.CreateOrder(request);
+            var result = await _controller.CreateOrder(request, CancellationToken.None);
 
             // Assert
             var badRequestObjectResult = result as BadRequestObjectResult;
@@ -85,7 +83,7 @@ namespace CadavizCodeHub.Unit.Api.Controllers
             features.Set<IHttpRequestFeature>(httpRequestFeature);
             features.Set<IHttpResponseFeature>(new HttpResponseFeature());
 
-            var controller = new OrderController(_logger, _orderService)
+            var controller = new OrderController(_orderService)
             {
                 ControllerContext = new ControllerContext
                 {

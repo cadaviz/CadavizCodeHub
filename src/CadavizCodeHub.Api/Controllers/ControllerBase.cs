@@ -1,19 +1,19 @@
-﻿using System;
-using System.Linq;
-using CadavizCodeHub.Api.Requests;
+﻿using CadavizCodeHub.Api.Requests;
 using CadavizCodeHub.Api.Responses;
 using CadavizCodeHub.Framework.Responses;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
 using Mvc = Microsoft.AspNetCore.Mvc;
 
 namespace CadavizCodeHub.Api.Controllers
 {
     public abstract class ControllerBase : Mvc.ControllerBase
     {
-        public ControllerBase() : base() { }
+        protected ControllerBase() : base() { }
 
         protected IActionResult BadRequest(ValidationResult validationResult)
         {

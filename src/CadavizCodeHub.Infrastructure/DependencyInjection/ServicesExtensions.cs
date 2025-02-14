@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using CadavizCodeHub.Domain.Entities;
 using CadavizCodeHub.Domain.Repositories;
 using CadavizCodeHub.Infrastructure.Database;
@@ -25,6 +26,9 @@ namespace CadavizCodeHub.Infrastructure.DependencyInjection
             services.AddScoped<IOrderCrudRepository, OrderRepository>();
 
             var dbSettings = configuration.GetRequiredSection("DatabaseSettings").Get<DatabaseSettings>();
+
+            ArgumentNullException.ThrowIfNull(dbSettings);
+
             services.AddSingleton(dbSettings);
 
             return services;
