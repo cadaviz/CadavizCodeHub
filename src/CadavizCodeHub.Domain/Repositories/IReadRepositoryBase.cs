@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using CadavizCodeHub.Framework.Domain;
 using System;
-using CadavizCodeHub.Framework.Domain;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace CadavizCodeHub.Domain.Repositories
 {

@@ -1,8 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using CadavizCodeHub.Domain.Repositories;
-using CadavizCodeHub.Domain.Services;
+﻿using CadavizCodeHub.Domain.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CadavizCodeHub.Domain.DependencyInjection
 {

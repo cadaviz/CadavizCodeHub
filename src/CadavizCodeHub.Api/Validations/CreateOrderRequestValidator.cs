@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using CadavizCodeHub.Api.Requests;
+﻿using CadavizCodeHub.Api.Requests;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CadavizCodeHub.Api.Validations
 {

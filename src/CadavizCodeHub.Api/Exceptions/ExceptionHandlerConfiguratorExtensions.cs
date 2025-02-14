@@ -1,9 +1,9 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using CadavizCodeHub.Framework.Responses;
+﻿using CadavizCodeHub.Framework.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CadavizCodeHub.Api.Exceptions
 {

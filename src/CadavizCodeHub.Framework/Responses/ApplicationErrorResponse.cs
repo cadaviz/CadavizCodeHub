@@ -8,5 +8,5 @@ namespace CadavizCodeHub.Framework.Responses
     /// <param name="StatusCode">Response http status code</param>
     /// <param name="Messages">List of messages</param>
     public record ApplicationErrorResponse(int StatusCode, IEnumerable<ApplicationMessage> Messages);
-    
+
 }

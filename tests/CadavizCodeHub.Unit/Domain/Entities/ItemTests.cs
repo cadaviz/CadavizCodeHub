@@ -6,7 +6,7 @@ using Xunit;
 
 namespace CadavizCodeHub.Unit.Domain.Entities
 {
-    public class ItemTests: TestsBase
+    public class ItemTests : TestsBase
     {
         [Fact]
         public void Item_TotalProperty_MustBeQuantityTimesProductPrice()

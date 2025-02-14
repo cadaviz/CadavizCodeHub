@@ -1,7 +1,7 @@
-﻿using System;
+﻿using CadavizCodeHub.Domain.Entities;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using CadavizCodeHub.Domain.Entities;
 
 namespace CadavizCodeHub.Domain.Services
 {

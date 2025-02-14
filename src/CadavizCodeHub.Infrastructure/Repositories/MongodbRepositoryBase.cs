@@ -1,11 +1,11 @@
-﻿using System;
+﻿using CadavizCodeHub.Domain.Repositories;
+using CadavizCodeHub.Framework.Domain;
+using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using CadavizCodeHub.Domain.Repositories;
-using CadavizCodeHub.Framework.Domain;
-using MongoDB.Driver;
 
 namespace CadavizCodeHub.Infrastructure.Repositories
 {

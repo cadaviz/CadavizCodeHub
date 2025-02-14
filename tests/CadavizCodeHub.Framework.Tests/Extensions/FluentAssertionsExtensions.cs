@@ -1,7 +1,7 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
+using System;
 
 namespace CadavizCodeHub.Framework.Tests.Extensions
 {

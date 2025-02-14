@@ -20,7 +20,7 @@ namespace CadavizCodeHub.Unit.Domain.Services
         public OrderServiceTests()
         {
             _orderRepository = Substitute.For<IOrderCrudRepository>();
-            _orderService = new OrderService( _orderRepository);
+            _orderService = new OrderService(_orderRepository);
         }
 
         [Fact]
@@ -49,7 +49,7 @@ namespace CadavizCodeHub.Unit.Domain.Services
                 .Returns(order);
 
             // Act
-           var result = await _orderService.GetOrderAsync(order.Id, CancellationToken.None);
+            var result = await _orderService.GetOrderAsync(order.Id, CancellationToken.None);
 
             // Assert
             result.Should().NotBeNull();

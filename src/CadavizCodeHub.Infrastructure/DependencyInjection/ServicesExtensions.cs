@@ -1,11 +1,10 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using CadavizCodeHub.Domain.Entities;
-using CadavizCodeHub.Domain.Repositories;
+﻿using CadavizCodeHub.Domain.Repositories;
 using CadavizCodeHub.Infrastructure.Database;
 using CadavizCodeHub.Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CadavizCodeHub.Infrastructure.DependencyInjection
 {

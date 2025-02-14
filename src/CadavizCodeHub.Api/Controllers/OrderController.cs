@@ -78,7 +78,7 @@ namespace CadavizCodeHub.Api.Controllers
             {
                 return validationResult;
             }
-            
+
             var order = request.Map();
 
             order = await _orderCreationService.CreateOrderAsync(order, cancellationToken);

@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using CadavizCodeHub.Api.Responses;
+﻿using CadavizCodeHub.Api.Responses;
 using CadavizCodeHub.Domain.Entities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CadavizCodeHub.Api.Mappers
 {

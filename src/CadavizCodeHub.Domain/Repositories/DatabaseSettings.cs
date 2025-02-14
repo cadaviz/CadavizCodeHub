@@ -15,8 +15,8 @@ namespace CadavizCodeHub.Domain.Repositories
             Password = password;
         }
 
-        public string ConnectionString { get;  }
-        public string DatabaseName { get;  }
+        public string ConnectionString { get; }
+        public string DatabaseName { get; }
         public string? User { get; }
         public string? Password { get; }
     }

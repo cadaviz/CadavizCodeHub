@@ -1,8 +1,8 @@
-﻿using System;
+﻿using AutoFixture;
+using AutoFixture.Kernel;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using AutoFixture;
-using AutoFixture.Kernel;
 
 namespace CadavizCodeHub.Framework.Tests.Fixtures
 {

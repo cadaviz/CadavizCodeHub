@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
-using CadavizCodeHub.Domain.Entities;
+﻿using CadavizCodeHub.Domain.Entities;
 using CadavizCodeHub.Framework.Tests.Tools;
 using CadavizCodeHub.Unit.Builders;
 using FluentAssertions;
+using System;
+using System.Linq;
 using Xunit;
 
 namespace CadavizCodeHub.Unit.Domain.Entities

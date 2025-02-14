@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using AutoFixture;
+﻿using AutoFixture;
 using CadavizCodeHub.Domain.Entities;
 using CadavizCodeHub.Framework.Tests.Fixtures;
+using System.Collections.Generic;
 
 namespace CadavizCodeHub.Unit.Builders
 {

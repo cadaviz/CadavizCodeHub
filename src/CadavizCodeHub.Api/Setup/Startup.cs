@@ -40,7 +40,7 @@ namespace CadavizCodeHub.Api.Setup
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
