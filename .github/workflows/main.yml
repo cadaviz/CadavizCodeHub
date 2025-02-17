@@ -29,10 +29,13 @@ jobs:
     steps:
       - name: 📥 Checkout project
         uses: actions/checkout@v4
-     
+      - name: 📦 Install SonarScanner for .NET
+        run: dotnet tool install --global coverlet.console
       - name: 🧪 Run unit tests with coverage
-        run: dotnet test ./tests/CadavizCodeHub.Unit/CadavizCodeHub.Unit.csproj --logger "trx;LogFileName=test-results.trx" --collect "XPlat Code Coverage" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./CoverageResults/coverage.opencover.xml
-
+       # run: dotnet test ./tests/CadavizCodeHub.Unit/CadavizCodeHub.Unit.csproj --logger "trx;LogFileName=test-results.trx" --collect "XPlat Code Coverage" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./CoverageResults/coverage.opencover.xml
+        run: dotnet test ./tests/CadavizCodeHub.Unit/CadavizCodeHub.Unit.csproj --logger "trx;LogFileName=test-results.trx" --collect "XPlat Code Coverage;Format=cobertura" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./CoverageResults/coverage.cobertura.xml
+      - name: 📥 Download coverage results2
+        run: ls -R .
       - name: 📊 Publish test results
         uses: actions/upload-artifact@v4
         with:
@@ -44,7 +47,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: UnitTestCoverage
-          path: tests/CadavizCodeHub.Unit/TestResults/**/coverage.cobertura.xml
+          path: tests/CadavizCodeHub.Unit/TestResults/**/*.cobertura.xml
 
   generate-test-reports:
     runs-on: ubuntu-latest
@@ -83,6 +86,31 @@ jobs:
           java-version: 17
           distribution: 'zulu'
 
+      - name: 📦 Install SonarScanner for .NET
+        run: dotnet tool install --global dotnet-sonarscanner
+      - name: 📦 Install SonarScanner for .NET
+        run: dotnet tool install --global coverlet.console
+      - name: 📦 Install SonarScanner for .NET
+        run: dotnet tool install -g dotnet-reportgenerator-globaltool
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
+        with:
+          path: ~\sonar\cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      
+      - name: Cache SonarCloud scanner
+        id: cache-sonar-scanner
+        uses: actions/cache@v3
+        with:
+          path: .\.sonar\scanner
+          key: ${{ runner.os }}-sonar-scanner
+          restore-keys: ${{ runner.os }}-sonar-scanner
+      
+      - name: Install SonarCloud scanner
+        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+        run: dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
+
       - name: 📥 Checkout project
         uses: actions/checkout@v4
 
@@ -91,18 +119,16 @@ jobs:
         with:
           pattern: "*TestCoverage*"
           merge-multiple: true
-
-      - name: 📝 Ajustar versão do relatório Cobertura
-        run: sed -i 's/version="1.9"/version="1"/' $(find . -type f -name "coverage.cobertura.xml")
-
-      - name: 📦 Install SonarScanner for .NET
-        run: dotnet tool install --global dotnet-sonarscanner
+      - name: 📥 Download coverage results2
+        run: ls -R .
 
       - name: 🔨 Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           FILE_PATH=$(find . -type f -name "coverage.cobertura.xml" | head -n 1)
-          dotnet sonarscanner begin /k:"cadaviz_CadavizCodeHub" /o:"cadaviz" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" #/d:sonar.coverageReportPaths="$FILE_PATH"
+          ls -lh "$FILE_PATH"
+          dotnet sonarscanner begin /k:"cadaviz_CadavizCodeHub" /o:"cadaviz" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="$FILE_PATH"
           dotnet build
           dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
