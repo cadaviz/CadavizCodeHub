@@ -85,6 +85,8 @@ jobs:
 
       - name: 📦 Install SonarScanner for .NET
         run: dotnet tool install --global dotnet-sonarscanner
+      - name: 📦 Install SonarScanner for .NET
+        run: dotnet tool install --global coverlet.console
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
         with:
@@ -123,6 +125,6 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          dotnet sonarscanner begin /k:"cadaviz_CadavizCodeHub" /o:"cadaviz" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-          dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -l trx
+          dotnet sonarscanner begin /k:"cadaviz_CadavizCodeHub" /o:"cadaviz" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths=CoverageResults/coverage.opencover.xml
+          # dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -l trx
           dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
