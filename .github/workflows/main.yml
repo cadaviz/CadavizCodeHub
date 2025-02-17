@@ -125,6 +125,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           FILE_PATH=$(find . -type f -name "coverage.cobertura.xml" | head -n 1)
+          ls -lh "$FILE_PATH"
           dotnet sonarscanner begin /k:"cadaviz_CadavizCodeHub" /o:"cadaviz" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="$FILE_PATH"
           dotnet build
           dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
