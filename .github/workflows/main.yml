@@ -87,6 +87,8 @@ jobs:
         run: dotnet tool install --global dotnet-sonarscanner
       - name: 📦 Install SonarScanner for .NET
         run: dotnet tool install --global coverlet.console
+      - name: 📦 Install SonarScanner for .NET
+        run: dotnet tool install -g dotnet-reportgenerator-globaltool
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
         with:
@@ -114,6 +116,8 @@ jobs:
         with:
           pattern: "*TestCoverage*"
           merge-multiple: true
+      - name: 📥 Download coverage results2
+        run: ls -r .
 
       - name: 🔨 Build and analyze
         env:
