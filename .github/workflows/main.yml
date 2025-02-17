@@ -111,18 +111,18 @@ jobs:
           pattern: "*TestCoverage*"
           merge-multiple: true
 
-      - name: 📝 Ajustar versão do relatório Cobertura
-        run: sed -i 's/version="1.9"/version="1"/' $(find . -type f -name "coverage.cobertura.xml")
+      # - name: 📝 Ajustar versão do relatório Cobertura
+      #   run: sed -i 's/version="1.9"/version="1"/' $(find . -type f -name "coverage.cobertura.xml")
 
-      #- name: 📦 Install SonarScanner for .NET
-      #  run: dotnet tool install --global dotnet-sonarscanner
+      # - name: 📦 Install SonarScanner for .NET
+      #   run: dotnet tool install --global dotnet-sonarscanner
 
       - name: 🔨 Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          #FILE_PATH=$(find . -type f -name "coverage.cobertura.xml" | head -n 1)
+          # FILE_PATH=$(find . -type f -name "coverage.cobertura.xml" | head -n 1)
           dotnet sonarscanner begin /k:"cadaviz_CadavizCodeHub" /o:"cadaviz" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" #/d:sonar.coverageReportPaths="$FILE_PATH"
           dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -l trx
           dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
