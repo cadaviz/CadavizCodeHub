@@ -117,7 +117,7 @@ jobs:
           pattern: "*TestCoverage*"
           merge-multiple: true
       - name: 📥 Download coverage results2
-        run: ls -r .
+        run: ls -R .
 
       - name: 🔨 Build and analyze
         env:
