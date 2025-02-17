@@ -31,7 +31,8 @@ jobs:
         uses: actions/checkout@v4
      
       - name: 🧪 Run unit tests with coverage
-        run: dotnet test ./tests/CadavizCodeHub.Unit/CadavizCodeHub.Unit.csproj --logger "trx;LogFileName=test-results.trx" --collect "XPlat Code Coverage" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./CoverageResults/coverage.opencover.xml
+       # run: dotnet test ./tests/CadavizCodeHub.Unit/CadavizCodeHub.Unit.csproj --logger "trx;LogFileName=test-results.trx" --collect "XPlat Code Coverage" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./CoverageResults/coverage.opencover.xml
+        run: dotnet test ./tests/CadavizCodeHub.Unit/CadavizCodeHub.Unit.csproj --logger "trx;LogFileName=test-results.trx" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./CoverageResults/coverage.opencover.xml
 
       - name: 📊 Publish test results
         uses: actions/upload-artifact@v4
