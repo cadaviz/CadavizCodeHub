@@ -33,7 +33,7 @@ jobs:
         run: dotnet tool install --global coverlet.console
       - name: 🧪 Run unit tests with coverage
        # run: dotnet test ./tests/CadavizCodeHub.Unit/CadavizCodeHub.Unit.csproj --logger "trx;LogFileName=test-results.trx" --collect "XPlat Code Coverage" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./CoverageResults/coverage.opencover.xml
-        run: dotnet test ./tests/CadavizCodeHub.Unit/CadavizCodeHub.Unit.csproj --logger "trx;LogFileName=test-results.trx" --collect "Code Coverage" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./CoverageResults/coverage.opencover.xml
+        run: dotnet test ./tests/CadavizCodeHub.Unit/CadavizCodeHub.Unit.csproj --logger "trx;LogFileName=test-results.trx" --collect "Code Coverage;Format=cobertura" /p:CollectCoverage=true /p:CoverletOutputFormat=coverlet
       - name: 📥 Download coverage results2
         run: ls -R .
       - name: 📊 Publish test results
@@ -47,7 +47,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: UnitTestCoverage
-          path: tests/CadavizCodeHub.Unit/TestResults/**/coverage.cobertura.xml
+          path: tests/CadavizCodeHub.Unit/TestResults/**/*.cobertura.xml
 
   generate-test-reports:
     runs-on: ubuntu-latest
