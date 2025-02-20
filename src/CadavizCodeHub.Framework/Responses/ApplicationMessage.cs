@@ -5,5 +5,5 @@
     /// </summary>
     /// <param name="Message">Message for users</param>
     /// <param name="DeveloperMessage">Message for developers</param>
-    public record ApplicationMessage(string Message, string DeveloperMessage = "");
+    public record ApplicationMessage(string Message, string? DeveloperMessage = null);
 }
