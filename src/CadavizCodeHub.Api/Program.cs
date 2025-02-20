@@ -1,4 +1,4 @@
-using CadavizCodeHub.Api.Setup;
+using CadavizCodeHub.WebApi.Setup;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 

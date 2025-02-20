@@ -17,7 +17,7 @@ namespace CadavizCodeHub.Domain.Entities
             _items = items ?? [];
         }
 
-        public IReadOnlyList<Item> Items => _items.ToList();
+        public IReadOnlyList<Item> Items => [.. _items];
         public decimal Total => Items.Sum(item => item.Total);
     }
 }

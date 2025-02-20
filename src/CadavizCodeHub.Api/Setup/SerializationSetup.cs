@@ -1,15 +1,22 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization;
 
-namespace CadavizCodeHub.Api.Setup
+namespace CadavizCodeHub.WebApi.Setup
 {
     [ExcludeFromCodeCoverage]
     internal static class SerializationSetup
     {
-        public static IServiceCollection ConfigureSerialization(this IServiceCollection services, IConfiguration configuration)
+        public static IMvcBuilder ConfigureSerialization(this IMvcBuilder builder)
         {
-            return services;
+            builder.AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                    options.JsonSerializerOptions.WriteIndented = true;
+                    options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+                });
+
+            return builder;
         }
     }
 }

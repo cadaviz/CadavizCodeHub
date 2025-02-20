@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
 
-namespace CadavizCodeHub.Api.Setup.DependencyInjection
+namespace CadavizCodeHub.WebApi.Setup.DependencyInjection
 {
     [ExcludeFromCodeCoverage]
     internal static class ServicesExtensions

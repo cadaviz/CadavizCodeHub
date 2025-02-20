@@ -1,17 +1,18 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace CadavizCodeHub.Api.Setup
+namespace CadavizCodeHub.WebApi.Setup
 {
     [ExcludeFromCodeCoverage]
     public static class SwaggerSetup
     {
-        public static IServiceCollection ConfigureSwagger(this IServiceCollection services, IConfiguration configuration)
+        private const string GithubUri = "https://github.com/cadaviz";
+
+        public static IServiceCollection ConfigureSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(setup =>
             {
@@ -28,7 +29,7 @@ namespace CadavizCodeHub.Api.Setup
                         {
                             Name = "Miguel Cadaviz",
                             Email = "miguelcadaviz@gmail.com",
-                            Url = new Uri("https://github.com/cadaviz")
+                            Url = new Uri(GithubUri)
                         }
                     });
             });

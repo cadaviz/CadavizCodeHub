@@ -1,13 +1,16 @@
-﻿using CadavizCodeHub.Api.Exceptions;
-using CadavizCodeHub.Api.Setup.DependencyInjection;
+﻿using CadavizCodeHub.Application.DependencyInjection;
 using CadavizCodeHub.Domain.DependencyInjection;
 using CadavizCodeHub.Infrastructure.DependencyInjection;
+using CadavizCodeHub.WebApi.Exceptions;
+using CadavizCodeHub.WebApi.Setup.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics.CodeAnalysis;
 
-namespace CadavizCodeHub.Api.Setup
+namespace CadavizCodeHub.WebApi.Setup
 {
+    [ExcludeFromCodeCoverage]
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -20,17 +23,22 @@ namespace CadavizCodeHub.Api.Setup
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers(options =>
-            {
-                options.Filters.Add<HttpResponseExceptionFilter>();
-            });
+                {
+                    options.Filters.Add<HttpResponseExceptionFilter>();
+                })
+            .ConfigureApiBehaviorOptions(options =>
+                {
+                    options.SuppressModelStateInvalidFilter = true;
+                })
+             .ConfigureSerialization();
 
             services.AddEndpointsApiExplorer();
 
             services.AddSettings(Configuration);
+            services.AddMappers();
+            services.ConfigureSwagger();
 
-            services.ConfigureSerialization(Configuration);
-            services.ConfigureSwagger(Configuration);
-
+            services.ConfigureApplication(Configuration);
             services.ConfigureDomain(Configuration);
             services.ConfigureInfrastructure(Configuration);
         }

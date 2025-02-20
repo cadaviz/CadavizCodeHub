@@ -1,9 +1,10 @@
-﻿using CadavizCodeHub.Api.Mappers;
-using CadavizCodeHub.Api.Requests;
-using CadavizCodeHub.Api.Responses;
-using CadavizCodeHub.Api.Validations;
-using CadavizCodeHub.Domain.Services;
+﻿using AutoMapper;
+using CadavizCodeHub.Application.Services;
+using CadavizCodeHub.Domain.Entities;
 using CadavizCodeHub.Framework.Responses;
+using CadavizCodeHub.WebApi.Requests;
+using CadavizCodeHub.WebApi.Responses;
+using CadavizCodeHub.WebApi.Validations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Filters;
@@ -12,19 +13,21 @@ using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CadavizCodeHub.Api.Controllers
+namespace CadavizCodeHub.WebApi.Controllers
 {
     [ApiController]
     [Route(controllerName)]
     [Produces(MediaTypeNames.Application.Json)]
     public class OrderController : ControllerBase
     {
-        private const string controllerName = "order";
-        private readonly IOrderService _orderCreationService;
+        private const string controllerName = "orders";
+        private readonly IMapper _mapper;
+        private readonly IOrderApplicationService _orderApplicationService;
 
-        public OrderController(IOrderService orderCreationService) : base()
+        public OrderController(IMapper mapper, IOrderApplicationService orderCreationService) : base()
         {
-            _orderCreationService = orderCreationService;
+            _mapper = mapper;
+            _orderApplicationService = orderCreationService;
         }
 
         /// <summary>
@@ -33,15 +36,15 @@ namespace CadavizCodeHub.Api.Controllers
         /// <param name="id" example="ef310f03-b3ce-45ef-b6e3-dd641840fb90">Order identifier</param>
         /// <param name="cancellationToken">The cancellation token</param>
         /// <returns>Requested order</returns>
-        [HttpGet(Name = "GetOrder")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [HttpGet("{id}", Name = "GetOrderById")]
+        [ProducesResponseType(typeof(OrderResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApplicationErrorResponse), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApplicationErrorResponse), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetOrder(Guid id, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetOrderById(Guid id, CancellationToken cancellationToken)
         {
-            var order = await _orderCreationService.GetOrderAsync(id, cancellationToken);
+            var order = await _orderApplicationService.GetOrderAsync(id, cancellationToken);
 
-            return OkOrNoContent(order.MapNullable());
+            return OkOrNotFound(_mapper.Map<OrderResponse>(order));
         }
 
         /// <summary>
@@ -70,7 +73,7 @@ namespace CadavizCodeHub.Api.Controllers
         [ProducesResponseType(typeof(OrderResponse), StatusCodes.Status201Created)]
         [SwaggerResponseHeader(StatusCodes.Status201Created, "Location", type: "string", description: $"{controllerName}/{{id}}")]
         [ProducesResponseType(typeof(ApplicationErrorResponse), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateOrder(CreateOrderRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request, CancellationToken cancellationToken)
         {
             var validationResult = ValidateRequest<CreateOrderRequestValidator, CreateOrderRequest>(request);
 
@@ -79,14 +82,13 @@ namespace CadavizCodeHub.Api.Controllers
                 return validationResult;
             }
 
-            var order = request.Map();
+            var order = _mapper.Map<Order>(request);
 
-            order = await _orderCreationService.CreateOrderAsync(order, cancellationToken);
+            order = await _orderApplicationService.CreateOrderAsync(order, cancellationToken);
 
-            var response = order.Map();
-            var locationUri = BuildLocationUri(pathValue: $"{Request.Path}/{order.Id}");
+            var response = _mapper.Map<OrderResponse>(order);
 
-            return Created(locationUri, response);
+            return CreatedAtAction(nameof(GetOrderById), new { id = response.Id }, response);
         }
     }
 }

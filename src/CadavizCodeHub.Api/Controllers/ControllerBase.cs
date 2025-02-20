@@ -1,15 +1,14 @@
-﻿using CadavizCodeHub.Api.Requests;
-using CadavizCodeHub.Api.Responses;
-using CadavizCodeHub.Framework.Responses;
-using FluentValidation;
+﻿using CadavizCodeHub.Framework.Responses;
+using CadavizCodeHub.Framework.Validators;
+using CadavizCodeHub.WebApi.Requests;
+using CadavizCodeHub.WebApi.Responses;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Linq;
 using Mvc = Microsoft.AspNetCore.Mvc;
 
-namespace CadavizCodeHub.Api.Controllers
+namespace CadavizCodeHub.WebApi.Controllers
 {
     public abstract class ControllerBase : Mvc.ControllerBase
     {
@@ -32,8 +31,20 @@ namespace CadavizCodeHub.Api.Controllers
             return Ok(response);
         }
 
+        protected IActionResult OkOrNotFound(IResponse? response)
+        {
+            if (response is null)
+            {
+                var notFoundResponse = new ApplicationErrorResponse(StatusCodes.Status404NotFound, new ApplicationMessage("No resource found."));
+
+                return NotFound(notFoundResponse);
+            }
+
+            return Ok(response);
+        }
+
         protected IActionResult? ValidateRequest<TValidator, TRequest>(TRequest request)
-            where TValidator : AbstractValidator<TRequest>, new()
+            where TValidator : ValidatorBase<TRequest>, new()
             where TRequest : IRequest
         {
             var validationResult = new TValidator().Validate(request);
@@ -43,16 +54,6 @@ namespace CadavizCodeHub.Api.Controllers
             }
 
             return null;
-        }
-
-        protected Uri BuildLocationUri(string pathValue)
-        {
-            var location = new UriBuilder(scheme: Request.Scheme,
-                                          host: Request.Host.Host,
-                                          port: Request.Host.Port.GetValueOrDefault(),
-                                          pathValue: pathValue);
-
-            return location.Uri;
         }
     }
 }

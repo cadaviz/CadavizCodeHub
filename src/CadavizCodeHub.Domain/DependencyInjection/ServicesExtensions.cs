@@ -1,4 +1,4 @@
-﻿using CadavizCodeHub.Domain.Services;
+﻿using CadavizCodeHub.Domain.DomainServices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
@@ -10,14 +10,14 @@ namespace CadavizCodeHub.Domain.DependencyInjection
     {
         public static IServiceCollection ConfigureDomain(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddServices(configuration);
+            services.AddDomainServices(configuration);
 
             return services;
         }
 
-        private static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
+        private static IServiceCollection AddDomainServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IOrderDomainService, OrderDomainService>();
 
             return services;
         }

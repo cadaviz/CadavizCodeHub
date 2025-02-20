@@ -1,10 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
-namespace CadavizCodeHub.Api.Responses
+namespace CadavizCodeHub.WebApi.Responses
 {
     /// <summary>
     /// Order representation
     /// </summary>
+    /// <param name="Id">Order identifier</param>
     /// <param name="Items">List of order items</param>
-    public record OrderResponse(IList<OrderResponseItem> Items) : IResponse;
+    /// <param name="Total">Total cost of order</param>
+    [ExcludeFromCodeCoverage]
+    public record OrderResponse(Guid Id, IEnumerable<OrderResponseItem> Items, decimal Total) : IResponse;
 }

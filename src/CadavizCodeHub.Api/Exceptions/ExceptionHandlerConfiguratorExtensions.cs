@@ -3,12 +3,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
-using System.Diagnostics.CodeAnalysis;
 
-namespace CadavizCodeHub.Api.Exceptions
+namespace CadavizCodeHub.WebApi.Exceptions
 {
-    [ExcludeFromCodeCoverage]
-    public class HttpResponseExceptionFilter : IExceptionFilter
+    internal class HttpResponseExceptionFilter : IExceptionFilter
     {
         public void OnException(ExceptionContext context)
         {
@@ -24,7 +22,7 @@ namespace CadavizCodeHub.Api.Exceptions
         private static ObjectResult CreateErrorResponse(Exception? exception)
         {
             var defaultErrorMessage = "Something went wrong!";
-            var devErrorMessage = exception?.Message ?? string.Empty;
+            var devErrorMessage = exception?.Message ?? null;
             var applicationMessages = new ApplicationMessage[] { new ApplicationMessage(defaultErrorMessage, devErrorMessage) };
 
             var response = new ApplicationErrorResponse(StatusCode: StatusCodes.Status500InternalServerError,

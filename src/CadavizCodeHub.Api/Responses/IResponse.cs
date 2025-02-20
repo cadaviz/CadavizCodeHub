@@ -1,4 +1,4 @@
-﻿namespace CadavizCodeHub.Api.Responses
+﻿namespace CadavizCodeHub.WebApi.Responses
 {
     public interface IResponse { }
 }
