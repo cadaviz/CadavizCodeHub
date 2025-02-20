@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace CadavizCodeHub.WebApi.Setup
 {
     [ExcludeFromCodeCoverage]
-    public static class MapperSetup
+    internal static class MapperSetup
     {
         public static IServiceCollection AddMappers(this IServiceCollection services)
         {

@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
+		.github\workflows\main.yml = .github\workflows\main.yml
 		NuGet.config = NuGet.config
 		README.md = README.md
 	EndProjectSection
@@ -35,8 +36,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CadavizCodeHub.Domain", "src\CadavizCodeHub.Domain\CadavizCodeHub.Domain.csproj", "{E6C59D6C-4044-48A5-85DD-A35A3E048B80}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CadavizCodeHub.Persistence", "src\CadavizCodeHub.Infrastructure\CadavizCodeHub.Persistence.csproj", "{7178EF87-64AF-41F0-BC05-85FB3D715AD9}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CadavizCodeHub.WebApi", "src\CadavizCodeHub.Api\CadavizCodeHub.WebApi.csproj", "{B2501CAA-3B39-4615-88DC-4CA612E1950A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{444C01B8-36A5-42F2-9331-E0C74C6236F3}"
 	ProjectSection(SolutionItems) = preProject
@@ -75,6 +74,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CadavizCodeHub.Test.Builder
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CadavizCodeHub.TestFramework", "tests\CadavizCodeHub.TestFramework\CadavizCodeHub.TestFramework.csproj", "{DA2560ED-8F35-81B7-3996-C71A73495339}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CadavizCodeHub.WebApi", "src\CadavizCodeHub.WebApi\CadavizCodeHub.WebApi.csproj", "{DF579037-6434-36EF-FEE3-D611D1613A63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,10 +94,6 @@ Global
 		{7178EF87-64AF-41F0-BC05-85FB3D715AD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7178EF87-64AF-41F0-BC05-85FB3D715AD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7178EF87-64AF-41F0-BC05-85FB3D715AD9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B2501CAA-3B39-4615-88DC-4CA612E1950A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B2501CAA-3B39-4615-88DC-4CA612E1950A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B2501CAA-3B39-4615-88DC-4CA612E1950A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B2501CAA-3B39-4615-88DC-4CA612E1950A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{813B51B7-1E17-0382-C1BD-300C1E734298}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{813B51B7-1E17-0382-C1BD-300C1E734298}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{813B51B7-1E17-0382-C1BD-300C1E734298}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -125,6 +122,10 @@ Global
 		{DA2560ED-8F35-81B7-3996-C71A73495339}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA2560ED-8F35-81B7-3996-C71A73495339}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA2560ED-8F35-81B7-3996-C71A73495339}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF579037-6434-36EF-FEE3-D611D1613A63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF579037-6434-36EF-FEE3-D611D1613A63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF579037-6434-36EF-FEE3-D611D1613A63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF579037-6434-36EF-FEE3-D611D1613A63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -134,7 +135,6 @@ Global
 		{CCDA5D20-A76B-4C43-BE95-2468EFB10C80} = {BF9255EF-801D-49BB-8F53-771E222B0A93}
 		{E6C59D6C-4044-48A5-85DD-A35A3E048B80} = {A68B94AD-5E12-470F-A0BF-3349423CB4BD}
 		{7178EF87-64AF-41F0-BC05-85FB3D715AD9} = {BF9255EF-801D-49BB-8F53-771E222B0A93}
-		{B2501CAA-3B39-4615-88DC-4CA612E1950A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{813B51B7-1E17-0382-C1BD-300C1E734298} = {BCFFAF7D-69BE-4C15-834C-ABE2BB0C955C}
 		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {AAB2B65C-80CD-4C0A-A71B-AFDEF4FF3C7D}
 		{BCFFAF7D-69BE-4C15-834C-ABE2BB0C955C} = {AAB2B65C-80CD-4C0A-A71B-AFDEF4FF3C7D}
@@ -151,6 +151,7 @@ Global
 		{64E833DE-48AC-42AB-99EC-25F7AB3EE869} = {0B59F421-B7CD-4CB3-8555-016942F80081}
 		{BEDF45FE-F02A-42C7-93B0-C46DB85FD2AA} = {64E833DE-48AC-42AB-99EC-25F7AB3EE869}
 		{DA2560ED-8F35-81B7-3996-C71A73495339} = {64E833DE-48AC-42AB-99EC-25F7AB3EE869}
+		{DF579037-6434-36EF-FEE3-D611D1613A63} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {27B1ED2B-11EE-4527-AF75-54BB025AEC42}

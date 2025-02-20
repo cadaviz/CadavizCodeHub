@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>CadavizCodeHub.Api</name>
+        <name>CadavizCodeHub.WebApi</name>
     </assembly>
     <members>
-        <member name="M:CadavizCodeHub.Api.Controllers.OrderController.GetOrder(System.Guid,System.Threading.CancellationToken)">
+        <member name="M:CadavizCodeHub.WebApi.Controllers.OrderController.GetOrderById(System.Guid,System.Threading.CancellationToken)">
             <summary>
             Get an Order
             </summary>
@@ -12,7 +12,7 @@
             <param name="cancellationToken">The cancellation token</param>
             <returns>Requested order</returns>
         </member>
-        <member name="M:CadavizCodeHub.Api.Controllers.OrderController.CreateOrder(CadavizCodeHub.Api.Requests.CreateOrderRequest,System.Threading.CancellationToken)">
+        <member name="M:CadavizCodeHub.WebApi.Controllers.OrderController.CreateOrder(CadavizCodeHub.WebApi.Requests.CreateOrderRequest,System.Threading.CancellationToken)">
              <summary>
              Create a new order
              </summary>
@@ -36,114 +36,129 @@
              <param name="request">The new order request body</param>
              <param name="cancellationToken">The cancellation token</param>
         </member>
-        <member name="T:CadavizCodeHub.Api.Requests.CreateOrderRequest">
+        <member name="T:CadavizCodeHub.WebApi.Requests.CreateOrderRequest">
             <summary>
             Data necessary to create a new order
             </summary>
             <param name="Items">List of order items</param>
         </member>
-        <member name="M:CadavizCodeHub.Api.Requests.CreateOrderRequest.#ctor(System.Collections.Generic.IEnumerable{CadavizCodeHub.Api.Requests.CreateOrderRequestItem})">
+        <member name="M:CadavizCodeHub.WebApi.Requests.CreateOrderRequest.#ctor(System.Collections.Generic.IEnumerable{CadavizCodeHub.WebApi.Requests.CreateOrderRequestItem})">
             <summary>
             Data necessary to create a new order
             </summary>
             <param name="Items">List of order items</param>
         </member>
-        <member name="P:CadavizCodeHub.Api.Requests.CreateOrderRequest.Items">
+        <member name="P:CadavizCodeHub.WebApi.Requests.CreateOrderRequest.Items">
             <summary>List of order items</summary>
         </member>
-        <member name="T:CadavizCodeHub.Api.Requests.CreateOrderRequestItem">
+        <member name="T:CadavizCodeHub.WebApi.Requests.CreateOrderRequestItem">
             <summary>
             Data necessary to create a new order
             </summary>
             <param name="Product">Product information</param>
             <param name="Quantity">Item quantity</param>
         </member>
-        <member name="M:CadavizCodeHub.Api.Requests.CreateOrderRequestItem.#ctor(CadavizCodeHub.Api.Requests.CreateOrderRequestProduct,System.Int32)">
+        <member name="M:CadavizCodeHub.WebApi.Requests.CreateOrderRequestItem.#ctor(CadavizCodeHub.WebApi.Requests.CreateOrderRequestProduct,System.Int32)">
             <summary>
             Data necessary to create a new order
             </summary>
             <param name="Product">Product information</param>
             <param name="Quantity">Item quantity</param>
         </member>
-        <member name="P:CadavizCodeHub.Api.Requests.CreateOrderRequestItem.Product">
+        <member name="P:CadavizCodeHub.WebApi.Requests.CreateOrderRequestItem.Product">
             <summary>Product information</summary>
         </member>
-        <member name="P:CadavizCodeHub.Api.Requests.CreateOrderRequestItem.Quantity">
+        <member name="P:CadavizCodeHub.WebApi.Requests.CreateOrderRequestItem.Quantity">
             <summary>Item quantity</summary>
         </member>
-        <member name="T:CadavizCodeHub.Api.Requests.CreateOrderRequestProduct">
+        <member name="T:CadavizCodeHub.WebApi.Requests.CreateOrderRequestProduct">
             <summary>
             Data necessary to create a new order
             </summary>
             <param name="Description">Description of the Product</param>
             <param name="Price">Product price</param>
         </member>
-        <member name="M:CadavizCodeHub.Api.Requests.CreateOrderRequestProduct.#ctor(System.String,System.Decimal)">
+        <member name="M:CadavizCodeHub.WebApi.Requests.CreateOrderRequestProduct.#ctor(System.String,System.Decimal)">
             <summary>
             Data necessary to create a new order
             </summary>
             <param name="Description">Description of the Product</param>
             <param name="Price">Product price</param>
         </member>
-        <member name="P:CadavizCodeHub.Api.Requests.CreateOrderRequestProduct.Description">
+        <member name="P:CadavizCodeHub.WebApi.Requests.CreateOrderRequestProduct.Description">
             <summary>Description of the Product</summary>
         </member>
-        <member name="P:CadavizCodeHub.Api.Requests.CreateOrderRequestProduct.Price">
+        <member name="P:CadavizCodeHub.WebApi.Requests.CreateOrderRequestProduct.Price">
             <summary>Product price</summary>
         </member>
-        <member name="T:CadavizCodeHub.Api.Responses.OrderResponse">
+        <member name="T:CadavizCodeHub.WebApi.Responses.OrderResponse">
             <summary>
             Order representation
             </summary>
+            <param name="Id">Order identifier</param>
             <param name="Items">List of order items</param>
+            <param name="Total">Total cost of order</param>
         </member>
-        <member name="M:CadavizCodeHub.Api.Responses.OrderResponse.#ctor(System.Collections.Generic.IList{CadavizCodeHub.Api.Responses.OrderResponseItem})">
+        <member name="M:CadavizCodeHub.WebApi.Responses.OrderResponse.#ctor(System.Guid,System.Collections.Generic.IReadOnlyList{CadavizCodeHub.WebApi.Responses.OrderResponseItem},System.Decimal)">
             <summary>
             Order representation
             </summary>
+            <param name="Id">Order identifier</param>
             <param name="Items">List of order items</param>
+            <param name="Total">Total cost of order</param>
         </member>
-        <member name="P:CadavizCodeHub.Api.Responses.OrderResponse.Items">
+        <member name="P:CadavizCodeHub.WebApi.Responses.OrderResponse.Id">
+            <summary>Order identifier</summary>
+        </member>
+        <member name="P:CadavizCodeHub.WebApi.Responses.OrderResponse.Items">
             <summary>List of order items</summary>
         </member>
-        <member name="T:CadavizCodeHub.Api.Responses.OrderResponseItem">
+        <member name="P:CadavizCodeHub.WebApi.Responses.OrderResponse.Total">
+            <summary>Total cost of order</summary>
+        </member>
+        <member name="T:CadavizCodeHub.WebApi.Responses.OrderResponseItem">
             <summary>
             Item representation
             </summary>
             <param name="Product">Product information</param>
             <param name="Quantity">Item quantity</param>
+            <param name="Total">Total cost of this item</param>
         </member>
-        <member name="M:CadavizCodeHub.Api.Responses.OrderResponseItem.#ctor(CadavizCodeHub.Api.Responses.OrderResponseProduct,System.Int32)">
+        <member name="M:CadavizCodeHub.WebApi.Responses.OrderResponseItem.#ctor(CadavizCodeHub.WebApi.Responses.OrderResponseProduct,System.Int32,System.Decimal)">
             <summary>
             Item representation
             </summary>
             <param name="Product">Product information</param>
             <param name="Quantity">Item quantity</param>
+            <param name="Total">Total cost of this item</param>
         </member>
-        <member name="P:CadavizCodeHub.Api.Responses.OrderResponseItem.Product">
+        <member name="P:CadavizCodeHub.WebApi.Responses.OrderResponseItem.Product">
             <summary>Product information</summary>
         </member>
-        <member name="P:CadavizCodeHub.Api.Responses.OrderResponseItem.Quantity">
+        <member name="P:CadavizCodeHub.WebApi.Responses.OrderResponseItem.Quantity">
             <summary>Item quantity</summary>
         </member>
-        <member name="T:CadavizCodeHub.Api.Responses.OrderResponseProduct">
+        <member name="P:CadavizCodeHub.WebApi.Responses.OrderResponseItem.Total">
+            <summary>Total cost of this item</summary>
+        </member>
+        <member name="T:CadavizCodeHub.WebApi.Responses.OrderResponseProduct">
             <summary>
             Product representation
             </summary>
             <param name="Description">Description of the Product</param>
             <param name="Price">Product price</param>
         </member>
-        <member name="M:CadavizCodeHub.Api.Responses.OrderResponseProduct.#ctor(System.String,System.Decimal)">
+        <member name="M:CadavizCodeHub.WebApi.Responses.OrderResponseProduct.#ctor(System.String,System.Decimal)">
             <summary>
             Product representation
             </summary>
             <param name="Description">Description of the Product</param>
             <param name="Price">Product price</param>
         </member>
-        <member name="P:CadavizCodeHub.Api.Responses.OrderResponseProduct.Description">
+        <member name="P:CadavizCodeHub.WebApi.Responses.OrderResponseProduct.Description">
             <summary>Description of the Product</summary>
         </member>
-        <member name="P:CadavizCodeHub.Api.Responses.OrderResponseProduct.Price">
+        <member name="P:CadavizCodeHub.WebApi.Responses.OrderResponseProduct.Price">
             <summary>Product price</summary>
         </member>
     </members>

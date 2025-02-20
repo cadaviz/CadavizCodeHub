@@ -8,7 +8,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace CadavizCodeHub.WebApi.Setup
 {
     [ExcludeFromCodeCoverage]
-    public static class SwaggerSetup
+    internal static class SwaggerSetup
     {
         private const string GithubUri = "https://github.com/cadaviz";
 

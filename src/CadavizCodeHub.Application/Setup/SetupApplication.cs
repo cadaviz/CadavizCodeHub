@@ -3,14 +3,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
 
-namespace CadavizCodeHub.Application.DependencyInjection
+namespace CadavizCodeHub.Application.Setup
 {
     [ExcludeFromCodeCoverage]
-    public static class ServicesExtensions
+    public static class SetupApplication
     {
         public static IServiceCollection ConfigureApplication(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddApplicationServices();
+
+            services.AddEventManager();
 
             return services;
         }

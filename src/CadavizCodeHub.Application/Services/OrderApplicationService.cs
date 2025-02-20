@@ -1,15 +1,18 @@
 ﻿using CadavizCodeHub.Domain.DomainEvents;
 using CadavizCodeHub.Domain.Entities;
 using CadavizCodeHub.Domain.Repositories;
+using MediatR;
 
 namespace CadavizCodeHub.Application.Services
 {
-    public class OrderApplicationService : IOrderApplicationService
+    internal class OrderApplicationService : IOrderApplicationService
     {
+        private readonly IMediator _mediator;
         private readonly IOrderCrudRepository _orderRepository;
 
-        public OrderApplicationService(IOrderCrudRepository orderRepository)
+        public OrderApplicationService(IMediator mediator, IOrderCrudRepository orderRepository)
         {
+            _mediator = mediator;
             _orderRepository = orderRepository;
         }
 
@@ -17,8 +20,7 @@ namespace CadavizCodeHub.Application.Services
         {
             await _orderRepository.CreateAsync(order, cancellationToken);
 
-            var orderCreatedEvent = new OrderCreatedEvent(order.Id, DateTime.Now);
-            //Trigger the event
+            await _mediator.Publish(new OrderCreatedEvent(order.Id, DateTime.Now), cancellationToken);
 
             return order;
         }

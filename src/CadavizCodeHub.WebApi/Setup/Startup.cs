@@ -1,4 +1,4 @@
-﻿using CadavizCodeHub.Application.DependencyInjection;
+﻿using CadavizCodeHub.Application.Setup;
 using CadavizCodeHub.Domain.DependencyInjection;
 using CadavizCodeHub.Infrastructure.DependencyInjection;
 using CadavizCodeHub.WebApi.Exceptions;
@@ -11,7 +11,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace CadavizCodeHub.WebApi.Setup
 {
     [ExcludeFromCodeCoverage]
-    public class Startup
+    internal class Startup
     {
         public Startup(IConfiguration configuration)
         {
