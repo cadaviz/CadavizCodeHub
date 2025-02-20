@@ -35,13 +35,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 🧪 Run unit tests
-        run: dotnet test ./tests/CadavizCodeHub.Unit/CadavizCodeHub.Unit.csproj --logger "trx;LogFileName=test-results.trx"
+        run: dotnet test CadavizCodeHub.sln --logger "trx;LogFileName=test-results.trx"
 
       - name: 📊 Publish test results
         uses: actions/upload-artifact@v4
         with:
           name: UnitTestResults
-          path: tests/CadavizCodeHub.Unit/TestResults/*.trx
+          path: tests/**/TestResults/*.trx
           if-no-files-found: warn
 
   generate-test-reports:
@@ -95,5 +95,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           dotnet sonarscanner begin /k:"cadaviz_CadavizCodeHub" /o:"cadaviz" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=./test-coverage/coverage.xml
-          dotnet-coverage collect --output-format xml --output ./test-coverage/coverage.xml -- 'dotnet test ./tests/CadavizCodeHub.Unit/CadavizCodeHub.Unit.csproj --logger "trx;LogFileName=test-results.trx"'
+          dotnet-coverage collect --output-format xml --output ./test-coverage/coverage.xml -- 'dotnet test CadavizCodeHub.sln --logger "trx;LogFileName=test-results.trx"'
           dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
