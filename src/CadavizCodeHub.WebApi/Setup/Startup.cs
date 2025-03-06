@@ -1,6 +1,6 @@
 ﻿using CadavizCodeHub.Application.Setup;
 using CadavizCodeHub.Domain.DependencyInjection;
-using CadavizCodeHub.Infrastructure.DependencyInjection;
+using CadavizCodeHub.Persistence.DependencyInjection;
 using CadavizCodeHub.WebApi.Exceptions;
 using CadavizCodeHub.WebApi.Setup.DependencyInjection;
 using Microsoft.AspNetCore.Builder;

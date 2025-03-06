@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CadavizCodeHub.Framework.Responses
 {
@@ -7,10 +9,16 @@ namespace CadavizCodeHub.Framework.Responses
     /// </summary>
     /// <param name="StatusCode">Response http status code</param>
     /// <param name="Messages">List of messages</param>
-    public record ApplicationErrorResponse(int StatusCode, IEnumerable<ApplicationMessage> Messages)
+    public record ApplicationErrorResponse(int StatusCode, IReadOnlyCollection<ApplicationMessage> Messages)
     {
-        public ApplicationErrorResponse(int StatusCode, ApplicationMessage message)
-        : this(StatusCode, [message]) { }
-    }
+        public ApplicationErrorResponse(int statusCode, ApplicationMessage message)
+        : this(statusCode, [message])
+        {
+            if (message is null)
+                throw new ArgumentException("Message cannot be null.", nameof(message));
+        }
 
+        public ApplicationErrorResponse(int statusCode, IEnumerable<ApplicationMessage> messages)
+        : this(statusCode, messages?.ToArray() ?? []) { }
+    }
 }

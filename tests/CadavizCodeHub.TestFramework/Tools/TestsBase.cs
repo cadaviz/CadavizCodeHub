@@ -33,7 +33,7 @@ namespace CadavizCodeHub.TestFramework.Tools
                 {
                     if (typeof(Profile).IsAssignableFrom(profile))
                     {
-                        cfg.AddProfile((Profile)Activator.CreateInstance(profile));
+                        cfg.AddProfile((Profile)Activator.CreateInstance(profile)!);
                     }
                 }
             });

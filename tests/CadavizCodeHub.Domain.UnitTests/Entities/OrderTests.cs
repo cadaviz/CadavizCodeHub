@@ -11,7 +11,7 @@ namespace CadavizCodeHub.Domain.UnitTests.Entities
     public class OrderTests : TestsBase
     {
         [Fact]
-        public void Order_ItemsProperty_IsImmutable()
+        public void Order_ShouldHaveImmutableItems_WhenItemsAreModifiedExternally()
         {
             // Arrange
             var itemCount = 5;
@@ -27,7 +27,7 @@ namespace CadavizCodeHub.Domain.UnitTests.Entities
         }
 
         [Fact]
-        public void Order_ItemsProperty_AlwaysIsInitialized()
+        public void Order_ShouldAlwaysInitializeItems_WhenCreatedWithNull()
         {
             // Arrange & Act
             var order = new Order(items: null);
@@ -38,11 +38,10 @@ namespace CadavizCodeHub.Domain.UnitTests.Entities
         }
 
         [Fact]
-        public void Order_TotalProperty_MustBeTheSumOfItemsTotal()
+        public void Order_ShouldCalculateTotalCorrectly_WhenItemsArePresent()
         {
             // Arrange
             var itemCount = new Random().Next(0, 10);
-
             var items = OrderBuilder.BuildItems(itemCount);
             var order = OrderBuilder.Build(items: items);
 
@@ -51,6 +50,27 @@ namespace CadavizCodeHub.Domain.UnitTests.Entities
 
             // Assert
             order.Total.Should().Be(sum);
+        }
+
+        [Fact]
+        public void Order_ShouldCalculateTotalAsZero_WhenNoItemsArePresent()
+        {
+            // Arrange
+            var order = new Order(items: null);
+
+            // Act & Assert
+            order.Total.Should().Be(0);
+        }
+
+        [Fact]
+        public void Order_ShouldHaveEmptyItems_WhenCreatedWithDefaultConstructor()
+        {
+            // Arrange & Act
+            var order = (Order)Activator.CreateInstance(typeof(Order), nonPublic: true)!;
+
+            // Assert
+            order.Items.Should().NotBeNull();
+            order.Items.Should().BeEmpty();
         }
     }
 }

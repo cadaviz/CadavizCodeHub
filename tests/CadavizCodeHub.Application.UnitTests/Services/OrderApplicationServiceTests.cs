@@ -48,7 +48,7 @@ namespace CadavizCodeHub.Application.UnitTests.Services
         public async Task GetOrderAsync_ShouldReturnOrder_WhenOrderExists()
         {
             // Arrange
-            var order = OrderBuilder.Build(); 
+            var order = OrderBuilder.Build();
             var orderId = order.Id;
 
             _orderRepository

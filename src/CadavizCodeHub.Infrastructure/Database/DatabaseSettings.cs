@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CadavizCodeHub.Domain.Repositories
+namespace CadavizCodeHub.Persistence.Database
 {
     public sealed class DatabaseSettings
     {

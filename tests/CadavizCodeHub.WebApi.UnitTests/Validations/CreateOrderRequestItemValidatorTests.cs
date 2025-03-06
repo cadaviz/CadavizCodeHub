@@ -2,9 +2,7 @@
 using CadavizCodeHub.TestFramework.Tools;
 using CadavizCodeHub.WebApi.Requests;
 using CadavizCodeHub.WebApi.Validations;
-using FluentAssertions;
 using FluentValidation.TestHelper;
-using NSubstitute.ReceivedExtensions;
 using Xunit;
 
 namespace CadavizCodeHub.WebApi.UnitTests.Validations
@@ -30,7 +28,7 @@ namespace CadavizCodeHub.WebApi.UnitTests.Validations
         public void Validator_ShouldHaveErrors_WhenRequestItemProductIsNull()
         {
             // Arrange
-            var requestItem = Fixture.Create<CreateOrderRequestItem>() with { Product = null };
+            var requestItem = Fixture.Create<CreateOrderRequestItem>() with { Product = null! };
 
             // Act 
             var result = _validator.TestValidate(requestItem);

@@ -7,7 +7,7 @@ using Xunit;
 
 namespace CadavizCodeHub.WebApi.UnitTests.Validations
 {
-   public class CreateOrderRequestProductValidatorTests : TestsBase
+    public class CreateOrderRequestProductValidatorTests : TestsBase
     {
         private readonly CreateOrderRequestProductValidator _validator = new();
 
@@ -27,7 +27,7 @@ namespace CadavizCodeHub.WebApi.UnitTests.Validations
         [Theory]
         [InlineData(null)]
         [InlineData("")]
-        public void Validator_ShouldHaveError_WhenRequestProductDescriptionIsEmpty(string description)
+        public void Validator_ShouldHaveError_WhenRequestProductDescriptionIsEmpty(string? description)
         {
             // Arrange
             var requestProduct = Fixture.Build<CreateOrderRequestProduct>()

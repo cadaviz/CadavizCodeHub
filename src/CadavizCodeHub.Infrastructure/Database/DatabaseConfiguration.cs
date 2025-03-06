@@ -1,7 +1,10 @@
 ﻿using CadavizCodeHub.Domain.Entities;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
+using System;
 
-namespace CadavizCodeHub.Infrastructure.Database
+namespace CadavizCodeHub.Persistence.Database
 {
     internal static class DatabaseConfiguration
     {
@@ -20,6 +23,11 @@ namespace CadavizCodeHub.Infrastructure.Database
             {
                 cm.AutoMap();
             });
+        }
+
+        public static void RegisterSerializer()
+        {
+            BsonSerializer.RegisterSerializer(typeof(Guid), new GuidSerializer(GuidRepresentation.Standard));
         }
     }
 }

@@ -10,6 +10,6 @@ namespace CadavizCodeHub.Domain.Repositories
     {
         Task<T> CreateAsync(T entity, CancellationToken cancellationToken);
         Task<T> UpdateAsync(T entity, CancellationToken cancellationToken);
-        Task<T> DeleteAsync(Guid id, CancellationToken cancellationToken);
+        Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken);
     }
 }

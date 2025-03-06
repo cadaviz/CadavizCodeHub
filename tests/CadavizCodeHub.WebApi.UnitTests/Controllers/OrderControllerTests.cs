@@ -81,7 +81,7 @@ namespace CadavizCodeHub.WebApi.UnitTests.Controllers
             createdAtActionResult.RouteValues.Should().NotBeNullOrEmpty();
             createdAtActionResult.RouteValues.Should().ContainKey("id");
 
-            var idValue = createdAtActionResult.RouteValues.GetValueOrDefault("id")!;
+            var idValue = createdAtActionResult.RouteValues!.GetValueOrDefault("id")!;
             idValue.Should().NotBeNull();
             idValue.Should().NotBe(Guid.Empty);
             idValue.Should().BeOfType<Guid>();

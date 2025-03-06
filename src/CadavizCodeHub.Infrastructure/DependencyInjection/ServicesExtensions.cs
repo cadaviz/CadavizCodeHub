@@ -1,44 +1,47 @@
 ﻿using CadavizCodeHub.Domain.Repositories;
-using CadavizCodeHub.Infrastructure.Database;
-using CadavizCodeHub.Infrastructure.Repositories;
+using CadavizCodeHub.Persistence.Database;
+using CadavizCodeHub.Persistence.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Driver;
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace CadavizCodeHub.Infrastructure.DependencyInjection
+namespace CadavizCodeHub.Persistence.DependencyInjection
 {
     [ExcludeFromCodeCoverage]
     public static class ServicesExtensions
     {
         public static IServiceCollection ConfigureInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddRepositories(configuration);
+            services.ConfigureDatabase(configuration);
 
-            ConfigureDatabase();
+            services.AddRepositories();
 
             return services;
         }
 
-        private static IServiceCollection AddRepositories(this IServiceCollection services, IConfiguration configuration)
+        private static void ConfigureDatabase(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IOrderCrudRepository, OrderRepository>();
-
             var dbSettings = configuration.GetRequiredSection("DatabaseSettings").Get<DatabaseSettings>();
             ArgumentNullException.ThrowIfNull(dbSettings);
 
             services.AddSingleton(dbSettings);
 
-            return services;
+            services.AddSingleton<IMongoClient>(sp =>
+            {
+                return new MongoClient(dbSettings.ConnectionString);
+            });
+
+            DatabaseConfiguration.RegisterClassMap();
+            DatabaseConfiguration.RegisterSerializer();
         }
 
-        private static void ConfigureDatabase()
+        private static IServiceCollection AddRepositories(this IServiceCollection services)
         {
-            DatabaseConfiguration.RegisterClassMap();
-            BsonSerializer.RegisterSerializer(typeof(Guid), new GuidSerializer(GuidRepresentation.Standard));
+            services.AddScoped<IOrderCrudRepository, OrderRepository>();
+
+            return services;
         }
     }
 }

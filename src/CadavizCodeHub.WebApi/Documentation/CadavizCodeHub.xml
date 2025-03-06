@@ -99,7 +99,7 @@
             <param name="Items">List of order items</param>
             <param name="Total">Total cost of order</param>
         </member>
-        <member name="M:CadavizCodeHub.WebApi.Responses.OrderResponse.#ctor(System.Guid,System.Collections.Generic.IReadOnlyList{CadavizCodeHub.WebApi.Responses.OrderResponseItem},System.Decimal)">
+        <member name="M:CadavizCodeHub.WebApi.Responses.OrderResponse.#ctor(System.Guid,System.Collections.Generic.IEnumerable{CadavizCodeHub.WebApi.Responses.OrderResponseItem},System.Decimal)">
             <summary>
             Order representation
             </summary>

@@ -1,8 +1,10 @@
 ﻿using MediatR;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CadavizCodeHub.Domain.DomainEvents
 {
+    [ExcludeFromCodeCoverage]
     public class OrderCreatedEvent(Guid orderId, DateTime createdAt) : INotification
     {
         public Guid OrderId { get; init; } = orderId;

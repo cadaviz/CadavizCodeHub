@@ -9,7 +9,7 @@ namespace CadavizCodeHub.Domain.UnitTests.Entities
     public class ItemTests : TestsBase
     {
         [Fact]
-        public void Item_TotalProperty_MustBeQuantityTimesProductPrice()
+        public void Item_ShouldCalculateTotal_WhenQuantityIsMultipliedByProductPrice()
         {
             // Arrange
             var item = Fixture.Create<Item>();

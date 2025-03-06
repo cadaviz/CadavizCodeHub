@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CadavizCodeHub.Domain.Repositories
 {
-    public interface IReadRepositoryBase<T> : IDisposable
+    public interface IReadRepositoryBase<T>
         where T : IEntity
     {
         virtual static string DatabaseName => "default";

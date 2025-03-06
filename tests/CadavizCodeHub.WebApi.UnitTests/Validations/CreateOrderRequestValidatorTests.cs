@@ -32,7 +32,7 @@ namespace CadavizCodeHub.WebApi.UnitTests.Validations
             CreateOrderRequest? request = null;
 
             // Act
-            var result = _validator.Validate(request);
+            var result = _validator.Validate(request!);
 
             // Assert
             result.IsValid.Should().BeFalse();
@@ -45,7 +45,7 @@ namespace CadavizCodeHub.WebApi.UnitTests.Validations
         public void Validator_ShouldHaveError_WhenItemsAreNull()
         {
             // Arrange
-            var request = Fixture.Create<CreateOrderRequest>() with { Items = null };
+            var request = Fixture.Create<CreateOrderRequest>() with { Items = null! };
 
             // Act
             var result = _validator.TestValidate(request);
@@ -74,7 +74,7 @@ namespace CadavizCodeHub.WebApi.UnitTests.Validations
         public void Validator_ShouldHaveErrors_WhenRequestItemIsNull()
         {
             // Arrange
-            var request = Fixture.Create<CreateOrderRequest>() with { Items = [null] };
+            var request = Fixture.Create<CreateOrderRequest>() with { Items = [null!] };
 
             // Act 
             var result = _validator.Validate(request);
