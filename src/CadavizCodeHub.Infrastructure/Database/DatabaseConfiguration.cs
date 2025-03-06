@@ -3,9 +3,11 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CadavizCodeHub.Persistence.Database
 {
+    [ExcludeFromCodeCoverage]
     internal static class DatabaseConfiguration
     {
         public static void RegisterClassMap()

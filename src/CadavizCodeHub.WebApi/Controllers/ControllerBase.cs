@@ -16,8 +16,8 @@ namespace CadavizCodeHub.WebApi.Controllers
 
         protected IActionResult BadRequest(ValidationResult validationResult)
         {
-            var response = new ApplicationErrorResponse(StatusCode: StatusCodes.Status400BadRequest,
-                                                        Messages: validationResult.Errors.Select(x => new ApplicationMessage(x.ErrorMessage)).ToArray());
+            var response = new ApplicationErrorResponse(statusCode: StatusCodes.Status400BadRequest,
+                                                        messages: validationResult.Errors.Select(x => new ApplicationMessage(x.ErrorMessage)).ToArray());
             return BadRequest(response);
         }
 

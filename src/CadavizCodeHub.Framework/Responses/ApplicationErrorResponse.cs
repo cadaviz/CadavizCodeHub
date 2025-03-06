@@ -9,8 +9,11 @@ namespace CadavizCodeHub.Framework.Responses
     /// </summary>
     /// <param name="StatusCode">Response http status code</param>
     /// <param name="Messages">List of messages</param>
-    public record ApplicationErrorResponse(int StatusCode, IReadOnlyCollection<ApplicationMessage> Messages)
+    public record ApplicationErrorResponse
     {
+        public int StatusCode { get; init; }
+        public IReadOnlyCollection<ApplicationMessage> Messages { get; init; }
+
         public ApplicationErrorResponse(int statusCode, ApplicationMessage message)
         : this(statusCode, [message])
         {
@@ -19,6 +22,9 @@ namespace CadavizCodeHub.Framework.Responses
         }
 
         public ApplicationErrorResponse(int statusCode, IEnumerable<ApplicationMessage> messages)
-        : this(statusCode, messages?.ToArray() ?? []) { }
+        {
+            StatusCode = statusCode;
+            Messages = messages?.ToArray() ?? [];
+        }
     }
 }

@@ -25,8 +25,8 @@ namespace CadavizCodeHub.WebApi.Exceptions
             var devErrorMessage = exception?.Message ?? null;
             var applicationMessages = new ApplicationMessage[] { new ApplicationMessage(defaultErrorMessage, devErrorMessage) };
 
-            var response = new ApplicationErrorResponse(StatusCode: StatusCodes.Status500InternalServerError,
-                                                        Messages: applicationMessages);
+            var response = new ApplicationErrorResponse(statusCode: StatusCodes.Status500InternalServerError,
+                                                        messages: applicationMessages);
 
             return new ObjectResult(response)
             {
