@@ -1,0 +1,13 @@
+bin/
+obj/
+*.user
+*.suo
+*.csproj.user
+*.dll
+*.exe
+*.pdb
+*.cache
+.git/
+.env
+secrets/
+node_modules/
