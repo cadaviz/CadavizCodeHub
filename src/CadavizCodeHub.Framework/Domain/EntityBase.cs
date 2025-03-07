@@ -6,14 +6,11 @@ namespace CadavizCodeHub.Framework.Domain
     {
         protected EntityBase() { }
 
-        public Guid Id { get; protected set; }
+        public Guid Id { get; protected set; } = Guid.NewGuid();
 
         public override bool Equals(object? obj)
         {
-            if (obj is null || obj is not EntityBase entity)
-                return false;
-
-            return Id.Equals(entity.Id);
+            return obj is EntityBase entity && Id.Equals(entity.Id);
         }
 
         public override int GetHashCode()

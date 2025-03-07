@@ -1,73 +1,66 @@
 ﻿using CadavizCodeHub.Domain.Repositories;
 using CadavizCodeHub.Framework.Domain;
+using CadavizCodeHub.Persistence.Database;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CadavizCodeHub.Infrastructure.Repositories
+namespace CadavizCodeHub.Persistence.Repositories
 {
     [ExcludeFromCodeCoverage]
-    internal abstract class MongodbRepositoryBase<T> : IDisposable
+    internal abstract class MongodbRepositoryBase<T> : ICrudRepositoryBase<T>
         where T : class, IEntity
     {
-        private bool _disposed = false;
-        private readonly MongoClient _client;
-        private readonly IMongoDatabase _database;
         protected readonly IMongoCollection<T> _collection;
 
-        protected MongodbRepositoryBase(DatabaseSettings databaseSettings, string collectionName)
+        protected MongodbRepositoryBase(DatabaseSettings databaseSettings, IMongoClient mongoClient, string collectionName)
         {
-            _client = new MongoClient(databaseSettings.ConnectionString);
-            ArgumentNullException.ThrowIfNull(_client);
+            ArgumentNullException.ThrowIfNull(databaseSettings);
+            ArgumentNullException.ThrowIfNull(mongoClient);
+            ArgumentNullException.ThrowIfNull(collectionName);
 
-            _database = _client.GetDatabase(databaseSettings.DatabaseName);
-            ArgumentNullException.ThrowIfNull(_database);
+            var database = mongoClient.GetDatabase(databaseSettings.DatabaseName);
+            ArgumentNullException.ThrowIfNull(database);
 
-            _collection = _database.GetCollection<T>(collectionName);
+            _collection = database.GetCollection<T>(collectionName);
             ArgumentNullException.ThrowIfNull(_collection);
         }
 
-        protected Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+        public Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             return _collection.Find(filter => filter.Id == id)
                               .SingleOrDefaultAsync(cancellationToken) as Task<T?>;
         }
 
-        protected async Task<IEnumerable<T>> GetByFilterAsync(FilterDefinition<T> filter, CancellationToken cancellationToken)
+        internal protected async Task<IReadOnlyCollection<T>> GetByFilterAsync(FilterDefinition<T> filter, CancellationToken cancellationToken)
         {
-            return (await _collection.FindAsync(filter, cancellationToken: cancellationToken)).ToEnumerable(cancellationToken: cancellationToken);
+            var cursor = await _collection.FindAsync(filter, cancellationToken: cancellationToken);
+            return cursor == null ? Array.Empty<T>() : await cursor.ToListAsync(cancellationToken);
         }
 
-        protected Task CreateAsync(T entity, CancellationToken cancellationToken)
+        public async Task<T> CreateAsync(T entity, CancellationToken cancellationToken)
         {
-            return _collection.InsertOneAsync(entity, cancellationToken: cancellationToken);
+            await _collection.InsertOneAsync(entity, cancellationToken: cancellationToken);
+
+            return entity;
         }
 
-        public void Dispose()
+        public async Task<T> UpdateAsync(T entity, CancellationToken cancellationToken)
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-                return;
+            var filter = Builders<T>.Filter.Eq(e => e.Id, entity.Id);
+            await _collection.ReplaceOneAsync(filter, entity, cancellationToken: cancellationToken);
 
-            if (disposing)
-            {
-                _client.Dispose();
-                _database.Client.Dispose();
-            }
-
-            _disposed = true;
+            return entity;
         }
 
-        ~MongodbRepositoryBase()
+        public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken)
         {
-            Dispose(false);
+            var result = await _collection.DeleteOneAsync(x => x.Id == id, cancellationToken);
+            return result.DeletedCount > 0;
         }
     }
 }
