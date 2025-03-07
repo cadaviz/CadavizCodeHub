@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
-using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace CadavizCodeHub.WebApi.Setup
@@ -10,8 +9,6 @@ namespace CadavizCodeHub.WebApi.Setup
     [ExcludeFromCodeCoverage]
     internal static class SwaggerSetup
     {
-        private const string GithubUri = "https://github.com/cadaviz";
-
         public static IServiceCollection ConfigureSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(setup =>
@@ -29,17 +26,12 @@ namespace CadavizCodeHub.WebApi.Setup
                         {
                             Name = "Miguel Cadaviz",
                             Email = "miguelcadaviz@gmail.com",
-                            Url = new Uri(GithubUri)
+                            Url = new("https://github.com/cadaviz"),
                         }
                     });
             });
 
             return services;
-        }
-
-        private static string GetXmlCommentsPath()
-        {
-            return System.AppDomain.CurrentDomain.BaseDirectory + @"CadavizCodeHub.xml";
         }
 
         public static IApplicationBuilder ConfigureSwagger(this IApplicationBuilder app)
@@ -53,6 +45,11 @@ namespace CadavizCodeHub.WebApi.Setup
             });
 
             return app;
+        }
+
+        private static string GetXmlCommentsPath()
+        {
+            return System.AppDomain.CurrentDomain.BaseDirectory + @"CadavizCodeHub.xml";
         }
     }
 }

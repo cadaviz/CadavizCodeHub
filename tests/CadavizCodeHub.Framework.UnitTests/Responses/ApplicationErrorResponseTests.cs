@@ -47,7 +47,7 @@ namespace CadavizCodeHub.Framework.UnitTests.Responses
             ApplicationMessage message = null!;
 
             // Act
-            Action act = () => new ApplicationErrorResponse(500, message);
+            Func<ApplicationErrorResponse> act = () => new ApplicationErrorResponse(500, message);
 
             // Assert
             act.Should().Throw<ArgumentException>();

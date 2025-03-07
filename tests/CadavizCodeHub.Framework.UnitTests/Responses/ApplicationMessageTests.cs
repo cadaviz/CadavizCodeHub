@@ -37,7 +37,7 @@ namespace CadavizCodeHub.Framework.UnitTests.Responses
         public void Constructor_ShouldThrowArgumentException_WhenMessageIsNullOrEmpty(string? invalidMessage)
         {
             // Act
-            Action act = () => new ApplicationMessage(invalidMessage!);
+            Func<ApplicationMessage> act = () => new ApplicationMessage(invalidMessage!);
 
             // Assert
             act.Should().Throw<ArgumentException>();
