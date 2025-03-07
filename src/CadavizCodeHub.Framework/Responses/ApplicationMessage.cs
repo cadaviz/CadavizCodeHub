@@ -9,8 +9,8 @@ namespace CadavizCodeHub.Framework.Responses
     /// <param name="DeveloperMessage">Message for developers</param>
     public record ApplicationMessage
     {
-        public string Message { get; init; }
-        public string? DeveloperMessage { get; init; }
+        public string Message { get; }
+        public string? DeveloperMessage { get; }
 
         public ApplicationMessage(string message, string? developerMessage = null)
         {

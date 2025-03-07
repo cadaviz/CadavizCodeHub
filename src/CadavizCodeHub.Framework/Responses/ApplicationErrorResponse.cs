@@ -11,8 +11,8 @@ namespace CadavizCodeHub.Framework.Responses
     /// <param name="Messages">List of messages</param>
     public record ApplicationErrorResponse
     {
-        public int StatusCode { get; init; }
-        public IReadOnlyCollection<ApplicationMessage> Messages { get; init; }
+        public int StatusCode { get; }
+        public IReadOnlyCollection<ApplicationMessage> Messages { get; }
 
         public ApplicationErrorResponse(int statusCode, ApplicationMessage message)
         : this(statusCode, [message])
