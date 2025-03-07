@@ -43,16 +43,13 @@ namespace CadavizCodeHub.WebApi.Setup
             services.ConfigureInfrastructure(Configuration);
         }
 
-        public static void Configure(IApplicationBuilder app)
+        public void Configure(WebApplication app)
         {
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.MapControllers();
 
             app.ConfigureSwagger();
         }
