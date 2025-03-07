@@ -1,10 +1,11 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace CadavizCodeHub.Framework.Validators
 {
-    public class ValidatorBase<T> : AbstractValidator<T>
+    public class ValidatorBase<T> : AbstractValidator<T> 
     {
         public ValidatorBase() : base() { }
 
@@ -12,7 +13,7 @@ namespace CadavizCodeHub.Framework.Validators
         {
             paramName ??= nameof(instance);
 
-            return instance == null
+            return EqualityComparer<T>.Default.Equals(instance, default)
                 ? new ValidationResult([new ValidationFailure(paramName, $"The {paramName} cannot be null.")])
                 : base.Validate(instance);
         }

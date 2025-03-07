@@ -27,7 +27,9 @@ namespace CadavizCodeHub.TestFramework.Fixtures
             if (pi == null)
                 return new NoSpecimen();
 
+#pragma warning disable SYSLIB1045
             var camelCase = Regex.Replace(_propertyInfo.Name, @"(\w)(.*)", m => m.Groups[1].Value.ToLower() + m.Groups[2]);
+#pragma warning restore SYSLIB1045
 
             if (pi.ParameterType != typeof(TProp) || pi.Name != camelCase)
                 return new NoSpecimen();
