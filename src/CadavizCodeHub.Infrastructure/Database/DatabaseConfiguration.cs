@@ -29,7 +29,7 @@ namespace CadavizCodeHub.Persistence.Database
 
         public static void RegisterSerializer()
         {
-            BsonSerializer.RegisterSerializer(typeof(Guid), new GuidSerializer(GuidRepresentation.Standard));
+            BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
         }
     }
 }
