@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
 
-namespace CadavizCodeHub.Domain.DependencyInjection
+namespace CadavizCodeHub.Domain.Setup
 {
     [ExcludeFromCodeCoverage]
     public static class ServicesExtensions

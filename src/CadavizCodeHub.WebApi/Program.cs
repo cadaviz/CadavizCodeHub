@@ -1,13 +1,27 @@
 using CadavizCodeHub.WebApi.Setup;
 using Microsoft.AspNetCore.Builder;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
-var builder = WebApplication.CreateBuilder(args);
+namespace CadavizCodeHub.WebApi
+{
+    [ExcludeFromCodeCoverage]
+    internal class Program
+    {
+        protected Program() { }
 
-var startup = new Startup(builder.Configuration);
-startup.ConfigureServices(builder.Services);
+        private static async Task Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
 
-var app = builder.Build()!;
+            var startup = new Startup(builder.Configuration);
+            startup.ConfigureServices(builder.Services);
 
-startup.Configure(app);
+            var app = builder.Build()!;
 
-await app.RunAsync();
+            Startup.Configure(app);
+
+            await app.RunAsync();
+        }
+    }
+}

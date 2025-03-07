@@ -6,7 +6,6 @@ namespace CadavizCodeHub.Framework.Domain
     {
         protected EntityBase() { }
 
-        //TODO: Preciso do protected set?
         public Guid Id { get; protected set; } = Guid.NewGuid();
 
         public override bool Equals(object? obj)

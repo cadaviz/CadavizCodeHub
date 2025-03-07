@@ -1,5 +1,5 @@
 ﻿using CadavizCodeHub.Application.Setup;
-using CadavizCodeHub.Domain.DependencyInjection;
+using CadavizCodeHub.Domain.Setup;
 using CadavizCodeHub.Persistence.DependencyInjection;
 using CadavizCodeHub.WebApi.Exceptions;
 using CadavizCodeHub.WebApi.Setup.DependencyInjection;
@@ -43,7 +43,7 @@ namespace CadavizCodeHub.WebApi.Setup
             services.ConfigureInfrastructure(Configuration);
         }
 
-        public void Configure(WebApplication app)
+        public static void Configure(WebApplication app)
         {
             app.UseHttpsRedirection();
             app.UseRouting();
