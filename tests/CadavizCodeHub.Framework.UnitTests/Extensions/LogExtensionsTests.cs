@@ -45,7 +45,8 @@ namespace CadavizCodeHub.Framework.UnitTests.Extensions
         public void LogDebugIfEnabled_ShouldLog_WhenDebugLevelIsEnabled()
         {
             // Arrange
-            _loggerMock.Setup(l => l.IsEnabled(LogLevel.Debug)).Returns(true);
+            _loggerMock.Setup(l => l.IsEnabled(LogLevel.Debug))
+                .Returns(true);
             string message = "Debug message";
 
             // Act
@@ -53,7 +54,12 @@ namespace CadavizCodeHub.Framework.UnitTests.Extensions
 
             // Assert
             _loggerMock.Verify(
-                l => l.Log(LogLevel.Debug, message, It.IsAny<object[]>()),
+                l => l.Log(
+                    It.Is<LogLevel>(level => level == LogLevel.Debug),
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((@object, type) => @object.ToString()!.Contains(message)),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
                 Times.Once);
         }
 
@@ -69,7 +75,12 @@ namespace CadavizCodeHub.Framework.UnitTests.Extensions
 
             // Assert
             _loggerMock.Verify(
-                l => l.Log(It.IsAny<LogLevel>(), It.IsAny<string>(), It.IsAny<object[]>()),
+                l => l.Log(
+                    It.Is<LogLevel>(level => level == LogLevel.Debug),
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((@object, type) => @object.ToString()!.Contains(message)),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
                 Times.Never);
         }
 
@@ -85,7 +96,12 @@ namespace CadavizCodeHub.Framework.UnitTests.Extensions
 
             // Assert
             _loggerMock.Verify(
-                l => l.Log(LogLevel.Information, message, It.IsAny<object[]>()),
+                l => l.Log(
+                    It.Is<LogLevel>(level => level == LogLevel.Information),
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((@object, type) => @object.ToString()!.Contains(message)),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
                 Times.Once);
         }
 
@@ -101,7 +117,12 @@ namespace CadavizCodeHub.Framework.UnitTests.Extensions
 
             // Assert
             _loggerMock.Verify(
-                l => l.Log(It.IsAny<LogLevel>(), It.IsAny<string>(), It.IsAny<object[]>()),
+                l => l.Log(
+                    It.Is<LogLevel>(level => level == LogLevel.Information),
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((@object, type) => @object.ToString()!.Contains(message)),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
                 Times.Never);
         }
 
@@ -111,16 +132,20 @@ namespace CadavizCodeHub.Framework.UnitTests.Extensions
             // Arrange
             _loggerMock.Setup(l => l.IsEnabled(LogLevel.Debug)).Returns(true);
             var complexObj = new { Name = "Test", Value = 42 };
-            string message = "Complex object log";
+            string message = "Complex object log {ComplexObject}";
 
             // Act
             _loggerMock.Object.LogDebugIfEnabled(message, complexObj);
 
             // Assert
             _loggerMock.Verify(
-                l => l.Log(LogLevel.Debug, message, It.Is<object[]>(args =>
-                    args.Length == 1 &&
-                    args[0].ToString() == complexObj.SerializeForLog())),
+                l => l.Log(
+                    It.Is<LogLevel>(level => level == LogLevel.Debug),
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((@object, type) => @object.ToString()!.Contains(complexObj.SerializeForLog())),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<It.IsAnyType, Exception?, string>>()
+                ),
                 Times.Once);
         }
     }

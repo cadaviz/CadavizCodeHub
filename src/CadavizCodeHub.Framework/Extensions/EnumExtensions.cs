@@ -8,7 +8,7 @@ namespace CadavizCodeHub.Framework.Extensions
         where TSource : Enum
         where TDestination : struct, Enum
         {
-            if (Enum.TryParse(typeof(TDestination), source.ToString(), out object? result))
+            if (Enum.IsDefined(typeof(TSource), source) && Enum.TryParse(typeof(TDestination), source.ToString(), out object? result))
             {
                 return (TDestination)result;
             }
