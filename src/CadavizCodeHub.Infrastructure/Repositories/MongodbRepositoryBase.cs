@@ -6,14 +6,12 @@ using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace CadavizCodeHub.Persistence.Repositories
 {
-    [ExcludeFromCodeCoverage]
-    internal abstract class MongodbRepositoryBase<T> : ICrudRepositoryBase<T>
+    public abstract class MongodbRepositoryBase<T> : ICrudRepositoryBase<T>
         where T : class, IEntity
     {
         protected readonly IMongoCollection<T> _collection;

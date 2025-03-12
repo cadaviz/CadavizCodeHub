@@ -1,5 +1,6 @@
 ﻿using CadavizCodeHub.Framework.Responses;
 using CadavizCodeHub.TestFramework.Tools;
+using CadavizCodeHub.WebApi.Controllers;
 using CadavizCodeHub.WebApi.Exceptions;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
@@ -7,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Logging;
+using Moq;
 using System;
 using Xunit;
 
@@ -14,11 +17,18 @@ namespace CadavizCodeHub.WebApi.UnitTests.Exceptions
 {
     public class ExceptionHandlerConfiguratorExtensionsTest : TestsBase
     {
+        private readonly HttpResponseExceptionFilter httpResponseExceptionFilter;
+
+        public ExceptionHandlerConfiguratorExtensionsTest()
+        {
+            var loggerMock = new Mock<ILogger<HttpResponseExceptionFilter>>();
+            httpResponseExceptionFilter = new HttpResponseExceptionFilter(loggerMock.Object);
+        }
+
         [Fact]
         public void OnException_ShouldSet500ErrorResponse_WhenUnhandledExceptionOccurs()
         {
             // Arrange
-            var filter = new HttpResponseExceptionFilter();
             var exception = new Exception("Unexpected error");
 
             var httpContext = new DefaultHttpContext();
@@ -29,7 +39,7 @@ namespace CadavizCodeHub.WebApi.UnitTests.Exceptions
             };
 
             // Act
-            filter.OnException(exceptionContext);
+            httpResponseExceptionFilter.OnException(exceptionContext);
 
             // Assert
             exceptionContext.ExceptionHandled.Should().BeTrue();
@@ -49,7 +59,6 @@ namespace CadavizCodeHub.WebApi.UnitTests.Exceptions
         public void OnException_ShouldSet500ErrorResponse_WhenHandledExceptionOccurs()
         {
             // Arrange
-            var filter = new HttpResponseExceptionFilter();
             var exception = new Exception("Unexpected error");
 
             var httpContext = new DefaultHttpContext();
@@ -61,7 +70,7 @@ namespace CadavizCodeHub.WebApi.UnitTests.Exceptions
             };
 
             // Act
-            filter.OnException(exceptionContext);
+            httpResponseExceptionFilter.OnException(exceptionContext);
 
             // Assert
             exceptionContext.ExceptionHandled.Should().BeTrue();

@@ -12,6 +12,8 @@ using CadavizCodeHub.WebApi.Responses;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Moq;
 using NSubstitute;
 using System;
 using System.Collections.Generic;
@@ -24,14 +26,15 @@ namespace CadavizCodeHub.WebApi.UnitTests.Controllers
     public class OrderControllerTests : TestsBase
     {
         private readonly IMapper _mapper;
-        private readonly IOrderApplicationService _orderService;
+        private readonly Mock<IOrderApplicationService> _orderServiceMock;
         private readonly OrderController _controller;
 
         public OrderControllerTests()
         {
+            var loggerMock = new Mock<ILogger<OrderController>>();
             _mapper = CreateMappers(typeof(OrderResponseProfile), typeof(CreateOrderRequestProfile));
-            _orderService = Substitute.For<IOrderApplicationService>();
-            _controller = new OrderController(_mapper, _orderService);
+            _orderServiceMock = new Mock<IOrderApplicationService>();
+            _controller = new OrderController(loggerMock.Object, _mapper, _orderServiceMock.Object);
         }
 
         [Fact]
@@ -65,7 +68,9 @@ namespace CadavizCodeHub.WebApi.UnitTests.Controllers
             // Arrange
             var request = Fixture.Create<CreateOrderRequest>();
             var order = OrderBuilder.Build();
-            _orderService.CreateOrderAsync(Arg.Any<Order>(), Arg.Any<CancellationToken>()).Returns(order);
+            _orderServiceMock
+                .Setup(service => service.CreateOrderAsync(It.IsAny<Order>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(order);
 
             // Act
             var result = await _controller.CreateOrder(request, CancellationToken.None);
@@ -94,8 +99,8 @@ namespace CadavizCodeHub.WebApi.UnitTests.Controllers
             var expectedOrder = OrderBuilder.Build();
             var orderId = expectedOrder.Id;
 
-            _orderService.GetOrderAsync(Arg.Any<Guid>(), Arg.Any<CancellationToken>())
-                .Returns(expectedOrder);
+            _orderServiceMock.Setup(service => service.GetOrderAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(expectedOrder);
 
             // Act
             var result = await _controller.GetOrderById(orderId, CancellationToken.None);
@@ -109,7 +114,6 @@ namespace CadavizCodeHub.WebApi.UnitTests.Controllers
             okResult.Value.Should().BeOfType<OrderResponse>();
         }
 
-        // Teste para quando o pedido não é encontrado
         [Fact]
         public async Task GetOrder_ShouldReturnNotFound_WhenOrderIsNotFound()
         {
@@ -117,8 +121,8 @@ namespace CadavizCodeHub.WebApi.UnitTests.Controllers
             Order? expectedOrder = null;
             var orderId = Guid.NewGuid();
 
-            _orderService.GetOrderAsync(Arg.Any<Guid>(), Arg.Any<CancellationToken>())
-                .Returns(expectedOrder);
+            _orderServiceMock.Setup(service => service.GetOrderAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(expectedOrder);
 
             // Act
             var result = await _controller.GetOrderById(orderId, CancellationToken.None);

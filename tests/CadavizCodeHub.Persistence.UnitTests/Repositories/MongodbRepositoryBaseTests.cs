@@ -4,7 +4,9 @@ using CadavizCodeHub.Persistence.Database;
 using CadavizCodeHub.Persistence.Repositories;
 using CadavizCodeHub.TestFramework.TestClasses.Domain;
 using CadavizCodeHub.TestFramework.Tools;
+using Castle.Core.Logging;
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Moq;
@@ -27,6 +29,8 @@ namespace CadavizCodeHub.Persistence.UnitTests.Repositories
             var databaseSettings = Fixture.Create<DatabaseSettings>();
             var _mockMongoClient = new Mock<IMongoClient>();
             var _mockDatabase = new Mock<IMongoDatabase>();
+            var _loggerMock = new Mock<ILogger<MongodbRepositoryBaseTest>>();
+
             _mockCollection = new Mock<IMongoCollection<TestEntityBase>>();
 
             _mockMongoClient.Setup(x => x.GetDatabase(It.IsAny<string>(), It.IsAny<MongoDatabaseSettings>()))
@@ -35,7 +39,7 @@ namespace CadavizCodeHub.Persistence.UnitTests.Repositories
             _mockDatabase.Setup(x => x.GetCollection<TestEntityBase>(It.IsAny<string>(), It.IsAny<MongoCollectionSettings>()))
                          .Returns(_mockCollection.Object);
 
-            _repository = new MongodbRepositoryBaseTest(databaseSettings, _mockMongoClient.Object, nameof(TestEntityBase));
+            _repository = new MongodbRepositoryBaseTest(databaseSettings, _mockMongoClient.Object, nameof(TestEntityBase), _loggerMock.Object);
         }
         [Fact]
         public async Task CreateAsync_ShouldInsertEntity()
@@ -254,8 +258,8 @@ namespace CadavizCodeHub.Persistence.UnitTests.Repositories
         }
     }
 
-    internal class MongodbRepositoryBaseTest : MongodbRepositoryBase<TestEntityBase>
+    public class MongodbRepositoryBaseTest : MongodbRepositoryBase<TestEntityBase>
     {
-        public MongodbRepositoryBaseTest(DatabaseSettings databaseSettings, IMongoClient mongoClient, string collectionName) : base(databaseSettings, mongoClient, collectionName) { }
+        public MongodbRepositoryBaseTest(DatabaseSettings databaseSettings, IMongoClient mongoClient, string collectionName, ILogger<MongodbRepositoryBaseTest> logger) : base(databaseSettings, mongoClient, collectionName, logger) { }
     }
 }
