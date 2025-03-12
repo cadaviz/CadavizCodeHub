@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using CadavizCodeHub.Application.Services;
 using CadavizCodeHub.Domain.Entities;
+using CadavizCodeHub.Framework.Extensions;
 using CadavizCodeHub.Framework.Responses;
 using CadavizCodeHub.WebApi.Requests;
 using CadavizCodeHub.WebApi.Responses;
 using CadavizCodeHub.WebApi.Validations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Filters;
 using System;
 using System.Net.Mime;
@@ -24,7 +26,7 @@ namespace CadavizCodeHub.WebApi.Controllers
         private readonly IMapper _mapper;
         private readonly IOrderApplicationService _orderApplicationService;
 
-        public OrderController(IMapper mapper, IOrderApplicationService orderCreationService) : base()
+        public OrderController(ILogger<OrderController> logger, IMapper mapper, IOrderApplicationService orderCreationService) : base(logger)
         {
             _mapper = mapper;
             _orderApplicationService = orderCreationService;
@@ -43,6 +45,8 @@ namespace CadavizCodeHub.WebApi.Controllers
         public async Task<IActionResult> GetOrderById(Guid id, CancellationToken cancellationToken)
         {
             var order = await _orderApplicationService.GetOrderAsync(id, cancellationToken);
+
+            _logger.LogDebugIfEnabled("Received this order from service. Order={Order}", order!);
 
             return OkOrNotFound(_mapper.Map<OrderResponse>(order));
         }
@@ -75,6 +79,8 @@ namespace CadavizCodeHub.WebApi.Controllers
         [ProducesResponseType(typeof(ApplicationErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request, CancellationToken cancellationToken)
         {
+            _logger.LogDebugIfEnabled("Received an order request. Request='{Request}'", request);
+
             var validationResult = ValidateRequest<CreateOrderRequestValidator, CreateOrderRequest>(request);
 
             if (validationResult is not null)
@@ -86,7 +92,11 @@ namespace CadavizCodeHub.WebApi.Controllers
 
             order = await _orderApplicationService.CreateOrderAsync(order, cancellationToken);
 
+            _logger.LogDebugIfEnabled("Received this order from service. Order='{Order}'", order);
+
             var response = _mapper.Map<OrderResponse>(order);
+
+            _logger.LogDebugIfEnabled("Order mapped to response. Response='{Response}'", response);
 
             return CreatedAtAction(nameof(GetOrderById), new { id = response.Id }, response);
         }

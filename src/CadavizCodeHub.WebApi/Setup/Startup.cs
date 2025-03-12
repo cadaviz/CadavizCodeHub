@@ -22,6 +22,8 @@ namespace CadavizCodeHub.WebApi.Setup
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.ConfigureLogs(Configuration);
+
             services.AddControllers(options =>
                 {
                     options.Filters.Add<HttpResponseExceptionFilter>();
@@ -50,7 +52,7 @@ namespace CadavizCodeHub.WebApi.Setup
             app.UseAuthorization();
 
             app.MapControllers();
-
+            app.ConfigureLogs();
             app.ConfigureSwagger();
         }
     }
