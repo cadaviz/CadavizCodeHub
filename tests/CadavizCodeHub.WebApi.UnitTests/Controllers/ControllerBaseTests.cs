@@ -3,11 +3,14 @@ using CadavizCodeHub.Framework.Validators;
 using CadavizCodeHub.TestFramework.Tools;
 using CadavizCodeHub.WebApi.Requests;
 using CadavizCodeHub.WebApi.Responses;
+using Castle.Core.Logging;
 using FluentAssertions;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Moq;
 using System.Linq;
 using Xunit;
 using CadavizCodeHubWebApi = CadavizCodeHub.WebApi.Controllers;
@@ -20,7 +23,8 @@ namespace CadavizCodeHub.WebApi.UnitTests.Controllers
 
         public ControllerBaseTests()
         {
-            _controller = new ControllerBaseTest();
+            var loggerMock = new Mock<ILogger<ControllerBaseTest>>();
+            _controller = new ControllerBaseTest(loggerMock.Object);
         }
 
         [Fact]
@@ -154,9 +158,9 @@ namespace CadavizCodeHub.WebApi.UnitTests.Controllers
         }
     }
 
-    internal class ControllerBaseTest : CadavizCodeHubWebApi.ControllerBase
+    public class ControllerBaseTest : CadavizCodeHubWebApi.ControllerBase
     {
-        internal ControllerBaseTest() : base() { }
+        internal ControllerBaseTest(ILogger<ControllerBaseTest> logger) : base(logger) { }
 
         internal new IActionResult BadRequest(ValidationResult validationResult) => base.BadRequest(validationResult);
 

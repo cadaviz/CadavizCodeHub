@@ -1,10 +1,12 @@
-﻿using CadavizCodeHub.Framework.Responses;
+﻿using CadavizCodeHub.Framework.Extensions;
+using CadavizCodeHub.Framework.Responses;
 using CadavizCodeHub.Framework.Validators;
 using CadavizCodeHub.WebApi.Requests;
 using CadavizCodeHub.WebApi.Responses;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Linq;
 using Mvc = Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +14,12 @@ namespace CadavizCodeHub.WebApi.Controllers
 {
     public abstract class ControllerBase : Mvc.ControllerBase
     {
-        protected ControllerBase() : base() { }
+        protected readonly ILogger<ControllerBase> _logger;
+
+        protected ControllerBase(ILogger<ControllerBase> logger) : base()
+        {   
+            _logger = logger;
+        }
 
         protected IActionResult BadRequest(ValidationResult validationResult)
         {
@@ -50,6 +57,8 @@ namespace CadavizCodeHub.WebApi.Controllers
             var validationResult = new TValidator().Validate(request);
             if (!validationResult.IsValid)
             {
+                _logger.LogDebugIfEnabled("The request in invalid. ValidationErrors='{ValidationErrors}'", request, validationResult);
+
                 return BadRequest(validationResult);
             }
 
