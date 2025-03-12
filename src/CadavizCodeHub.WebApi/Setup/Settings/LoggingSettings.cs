@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CadavizCodeHub.WebApi.Setup.Settings
 {
+    [ExcludeFromCodeCoverage]
     public class LoggingSettings
     {
         public WriteLogTo WriteLogTo { get; set; } = WriteLogTo.Console;
