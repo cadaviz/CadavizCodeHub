@@ -34,10 +34,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0B59F421
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CadavizCodeHub.Framework", "src\CadavizCodeHub.Framework\CadavizCodeHub.Framework.csproj", "{CCDA5D20-A76B-4C43-BE95-2468EFB10C80}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CadavizCodeHub.Domain", "src\CadavizCodeHub.Domain\CadavizCodeHub.Domain.csproj", "{E6C59D6C-4044-48A5-85DD-A35A3E048B80}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CadavizCodeHub.Persistence", "src\CadavizCodeHub.Infrastructure\CadavizCodeHub.Persistence.csproj", "{7178EF87-64AF-41F0-BC05-85FB3D715AD9}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{444C01B8-36A5-42F2-9331-E0C74C6236F3}"
 	ProjectSection(SolutionItems) = preProject
 		src\CadavizCodeHub.Api\Documentation\CadavizCodeHub.xml = src\CadavizCodeHub.Api\Documentation\CadavizCodeHub.xml
