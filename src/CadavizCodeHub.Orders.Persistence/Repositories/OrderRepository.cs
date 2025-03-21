@@ -11,7 +11,9 @@ namespace CadavizCodeHub.Orders.Persistence.Repositories
     [ExcludeFromCodeCoverage]
     internal class OrderRepository : MongodbRepositoryBase<Order>, IOrderReadRepository, IOrderCrudRepository
     {
-        public OrderRepository(DatabaseSettings databaseSettings, IMongoClient mongoClient, ILogger<OrderRepository> logger) 
-            : base(databaseSettings, mongoClient, "order", logger) { }        
+        protected override string CollectionName => "order";
+
+        public OrderRepository(DatabaseSettings databaseSettings, IMongoClient mongoClient, ILogger<OrderRepository> logger)
+            : base(databaseSettings, mongoClient, logger) { }
     }
 }

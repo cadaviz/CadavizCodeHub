@@ -14,7 +14,6 @@
   <ItemGroup>
     <ProjectReference Include="..\CadavizCodeHub.Core.Application\CadavizCodeHub.Core.Application.csproj" />
     <ProjectReference Include="..\CadavizCodeHub.Core.Logging\CadavizCodeHub.Core.Logging.csproj" />
-    <ProjectReference Include="..\CadavizCodeHub.Domain\CadavizCodeHub.Orders.Domain.csproj" />
     <ProjectReference Include="..\CadavizCodeHub.Orders.Domain\CadavizCodeHub.Orders.Domain.csproj" />
     <ProjectReference Include="..\CadavizCodeHub.Orders.Persistence\CadavizCodeHub.Orders.Persistence.csproj" />
   </ItemGroup>

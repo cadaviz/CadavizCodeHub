@@ -1,9 +1,10 @@
 ﻿using CadavizCodeHub.Core.Shared.Validators;
 using CadavizCodeHub.Orders.WebApi.Requests;
+using CadavizCodeHub.WebApi.Validations;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 
-namespace CadavizCodeHub.WebApi.Validations
+namespace CadavizCodeHub.Orders.WebApi.Validations
 {
     internal class CreateOrderRequestItemValidator : ValidatorBase<CreateOrderRequestItem>
     {

@@ -1,6 +1,4 @@
-﻿using CadavizCodeHub.Application.Services;
-using CadavizCodeHub.Application.Setup;
-using CadavizCodeHub.Orders.Application.Services;
+﻿using CadavizCodeHub.Orders.Application.Services;
 using CadavizCodeHub.Orders.Persistence.Setup;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +12,7 @@ namespace CadavizCodeHub.Orders.Application.Setup
     {
         public static IServiceCollection ConfigureApplication(this IServiceCollection services, IConfiguration configuration)
         {
-            CoreSetup.SetupApplication.ConfigureApplication(services, configuration);
+            CoreSetup.ApplicationSetup.ConfigureApplication(services, configuration);
 
             services.AddApplicationServices();
 

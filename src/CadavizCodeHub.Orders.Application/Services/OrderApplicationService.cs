@@ -1,11 +1,10 @@
 ﻿using CadavizCodeHub.Domain.DomainEvents;
-using CadavizCodeHub.Orders.Application.Services;
 using CadavizCodeHub.Orders.Domain.Entities;
 using CadavizCodeHub.Orders.Domain.Repositories;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace CadavizCodeHub.Application.Services
+namespace CadavizCodeHub.Orders.Application.Services
 {
     internal class OrderApplicationService : IOrderApplicationService
     {

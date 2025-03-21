@@ -1,5 +1,5 @@
-﻿using CadavizCodeHub.Application.Services;
-using CadavizCodeHub.Domain.DomainEvents;
+﻿using CadavizCodeHub.Orders.Application.Services;
+using CadavizCodeHub.Orders.Domain.DomainEvents;
 using CadavizCodeHub.Orders.Domain.Entities;
 using CadavizCodeHub.Orders.Domain.Repositories;
 using CadavizCodeHub.Tests.Shared.Builders.Builders;

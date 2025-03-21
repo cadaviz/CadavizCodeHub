@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
-namespace CadavizCodeHub.WebApi
+namespace CadavizCodeHub.Orders.WebApi
 {
     [ExcludeFromCodeCoverage]
     internal class Program

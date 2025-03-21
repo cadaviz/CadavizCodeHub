@@ -17,17 +17,19 @@ namespace CadavizCodeHub.Core.Persistence.MongoDB.Repositories
         protected readonly IMongoCollection<T> _collection;
         protected readonly ILogger<MongodbRepositoryBase<T>> _logger;
 
-        protected MongodbRepositoryBase(DatabaseSettings databaseSettings, IMongoClient mongoClient, string collectionName, ILogger<MongodbRepositoryBase<T>> logger)
+        protected abstract string CollectionName { get; }
+
+        protected MongodbRepositoryBase(DatabaseSettings databaseSettings, IMongoClient mongoClient, ILogger<MongodbRepositoryBase<T>> logger)
         {
             ArgumentNullException.ThrowIfNull(databaseSettings);
             ArgumentNullException.ThrowIfNull(mongoClient);
-            ArgumentNullException.ThrowIfNull(collectionName);
+            ArgumentNullException.ThrowIfNull(CollectionName);
             ArgumentNullException.ThrowIfNull(logger);
 
             var database = mongoClient.GetDatabase(databaseSettings.DatabaseName);
             ArgumentNullException.ThrowIfNull(database);
 
-            _collection = database.GetCollection<T>(collectionName);
+            _collection = database.GetCollection<T>(CollectionName);
             ArgumentNullException.ThrowIfNull(_collection);
 
             _logger = logger;
@@ -46,7 +48,7 @@ namespace CadavizCodeHub.Core.Persistence.MongoDB.Repositories
 
             _logger.LogDebugIfEnabled("Getting entities by filter found this result. Filter='{Filter}' Result='{Result}'", filter, result);
 
-            return result.AsReadOnly(); 
+            return result.AsReadOnly();
         }
 
         public async Task<T> CreateAsync(T entity, CancellationToken cancellationToken)

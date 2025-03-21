@@ -1,7 +1,7 @@
 ﻿using AutoFixture;
 using CadavizCodeHub.Orders.WebApi.Requests;
+using CadavizCodeHub.Orders.WebApi.Validations;
 using CadavizCodeHub.Tests.Shared.Tools;
-using CadavizCodeHub.WebApi.Validations;
 using FluentValidation.TestHelper;
 using Xunit;
 

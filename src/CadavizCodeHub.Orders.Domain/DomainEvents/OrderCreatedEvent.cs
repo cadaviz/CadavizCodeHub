@@ -2,7 +2,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace CadavizCodeHub.Domain.DomainEvents
+namespace CadavizCodeHub.Orders.Domain.DomainEvents
 {
     [ExcludeFromCodeCoverage]
     public class OrderCreatedEvent(Guid orderId, DateTime createdAt) : INotification

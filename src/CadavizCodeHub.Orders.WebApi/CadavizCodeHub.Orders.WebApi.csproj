@@ -20,10 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CadavizCodeHub.Application\CadavizCodeHub.Orders.Application.csproj" />
     <ProjectReference Include="..\CadavizCodeHub.Core.Logging\CadavizCodeHub.Core.Logging.csproj" />
     <ProjectReference Include="..\CadavizCodeHub.Core.WebApi\CadavizCodeHub.Core.WebApi.csproj" />
-    <ProjectReference Include="..\CadavizCodeHub.Domain\CadavizCodeHub.Orders.Domain.csproj" />
     <ProjectReference Include="..\CadavizCodeHub.Orders.Application\CadavizCodeHub.Orders.Application.csproj" />
     <ProjectReference Include="..\CadavizCodeHub.Orders.Domain\CadavizCodeHub.Orders.Domain.csproj" />
   </ItemGroup>

@@ -5,7 +5,7 @@ using CadavizCodeHub.Orders.Application.Services;
 using CadavizCodeHub.Orders.Domain.Entities;
 using CadavizCodeHub.Orders.WebApi.Requests;
 using CadavizCodeHub.Orders.WebApi.Responses;
-using CadavizCodeHub.WebApi.Validations;
+using CadavizCodeHub.Orders.WebApi.Validations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

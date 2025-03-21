@@ -4,7 +4,7 @@ using FluentAssertions;
 using System;
 using Xunit;
 
-namespace CadavizCodeHub.Framework.UnitTests.Responses
+namespace CadavizCodeHub.Core.Tests.Presentation.WebApi.Responses
 {
     public class ApplicationMessageTests : TestsBase
     {

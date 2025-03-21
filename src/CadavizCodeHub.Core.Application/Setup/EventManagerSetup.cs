@@ -5,7 +5,7 @@ using System.Reflection;
 namespace CadavizCodeHub.Core.Application.Setup
 {
     [ExcludeFromCodeCoverage]
-    internal static class SetupEventManager
+    internal static class EventManagerSetup
     {
         internal static IServiceCollection AddEventManager(this IServiceCollection services)
         {

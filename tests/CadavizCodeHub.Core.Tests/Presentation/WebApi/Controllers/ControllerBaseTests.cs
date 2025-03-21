@@ -1,9 +1,7 @@
-﻿using CadavizCodeHub.Core.Shared.Validators;
-using CadavizCodeHub.Core.WebApi.Requests;
+﻿using CadavizCodeHub.Core.Tests.FakeClasses.WebApi;
 using CadavizCodeHub.Core.WebApi.Responses;
 using CadavizCodeHub.Tests.Shared.Tools;
 using FluentAssertions;
-using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,18 +9,17 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using System.Linq;
 using Xunit;
-using CoreControllers = CadavizCodeHub.Core.WebApi.Controllers;
 
 namespace CadavizCodeHub.Core.Tests.Presentation.WebApi.Controllers
 {
     public class ControllerBaseTests : TestsBase
     {
-        private readonly ControllerBaseTest _controller;
+        private readonly FakeControllerBase _controller;
 
         public ControllerBaseTests()
         {
-            var loggerMock = new Mock<ILogger<ControllerBaseTest>>();
-            _controller = new ControllerBaseTest(loggerMock.Object);
+            var loggerMock = new Mock<ILogger<FakeControllerBase>>();
+            _controller = new FakeControllerBase(loggerMock.Object);
         }
 
         [Fact]
@@ -51,7 +48,7 @@ namespace CadavizCodeHub.Core.Tests.Presentation.WebApi.Controllers
         public void OkOrNoContent_ShouldReturnOkObjectResult_WhenResponseIsNotNull()
         {
             // Arrange
-            var response = new ResponseTest();
+            var response = new FakeResponse();
 
             // Act
             var result = _controller.OkOrNoContent(response);
@@ -83,7 +80,7 @@ namespace CadavizCodeHub.Core.Tests.Presentation.WebApi.Controllers
         public void OkOrNotFound_ShouldReturnOkObjectResult_WhenResponseIsNotNull()
         {
             // Arrange
-            var response = new ResponseTest();
+            var response = new FakeResponse();
 
             // Act
             var result = _controller.OkOrNotFound(response);
@@ -123,10 +120,10 @@ namespace CadavizCodeHub.Core.Tests.Presentation.WebApi.Controllers
         public void ValidateRequest_ShouldReturnBadRequest_WhenValidationFails()
         {
             // Arrange
-            var request = new RequestTest();
+            var request = new FakeRequest();
 
             // Act
-            var result = _controller.ValidateRequest<AbstractValidatorFailTest, RequestTest>(request);
+            var result = _controller.ValidateRequest<FakeFailValidator, FakeRequest>(request);
 
             // Assert
             result.Should().NotBeNull();
@@ -138,7 +135,7 @@ namespace CadavizCodeHub.Core.Tests.Presentation.WebApi.Controllers
             applicationErrorResponse.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
 
             var applicationMessage = applicationErrorResponse.Messages.Should().NotBeNullOrEmpty().And.ContainSingle().Which;
-            applicationMessage.Message.Should().Be(AbstractValidatorFailTest.ErrorMessage);
+            applicationMessage.Message.Should().Be(FakeFailValidator.ErrorMessage);
             applicationMessage.DeveloperMessage.Should().BeNull();
         }
 
@@ -146,48 +143,13 @@ namespace CadavizCodeHub.Core.Tests.Presentation.WebApi.Controllers
         public void ValidateRequest_ShouldReturnNull_WhenValidationSucceeds()
         {
             // Arrange
-            var request = new RequestTest();
+            var request = new FakeRequest();
 
             // Act
-            var result = _controller.ValidateRequest<AbstractValidatorSuccessTest, RequestTest>(request);
+            var result = _controller.ValidateRequest<FakeSuccessValidator, FakeRequest>(request);
 
             // Assert
             result.Should().BeNull();
         }
     }
-
-    public class ControllerBaseTest : CoreControllers.ControllerBase
-    {
-        internal ControllerBaseTest(ILogger<ControllerBaseTest> logger) : base(logger) { }
-
-        internal new IActionResult BadRequest(ValidationResult validationResult) => base.BadRequest(validationResult);
-
-        internal new IActionResult OkOrNoContent(IResponse? response) => base.OkOrNoContent(response);
-
-        internal new IActionResult OkOrNotFound(IResponse? response) => base.OkOrNotFound(response);
-
-        internal new IActionResult? ValidateRequest<TValidator, TRequest>(TRequest request)
-            where TValidator : ValidatorBase<TRequest>, new()
-            where TRequest : IRequest
-            => base.ValidateRequest<TValidator, TRequest>(request);
-    }
-
-    internal class AbstractValidatorSuccessTest : ValidatorBase<RequestTest>
-    {
-        public AbstractValidatorSuccessTest() : base() { }
-    }
-
-    internal class AbstractValidatorFailTest : ValidatorBase<RequestTest>
-    {
-        internal static string ErrorMessage = "The request is invalid";
-
-        public AbstractValidatorFailTest() : base()
-        {
-            RuleFor(x => x).Custom((_, context) => context.AddFailure(StatusCodes.Status400BadRequest.ToString(), ErrorMessage));
-        }
-    }
-
-    internal class ResponseTest : IResponse { }
-
-    internal class RequestTest : IRequest { }
 }

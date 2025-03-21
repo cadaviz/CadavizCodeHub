@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace CadavizCodeHub.Core.Application.Setup
 {
     [ExcludeFromCodeCoverage]
-    public static class SetupApplication
+    public static class ApplicationSetup
     {
         public static IServiceCollection ConfigureApplication(this IServiceCollection services, IConfiguration configuration)
         {

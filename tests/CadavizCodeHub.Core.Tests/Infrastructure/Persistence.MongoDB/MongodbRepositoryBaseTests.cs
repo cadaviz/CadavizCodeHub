@@ -1,7 +1,8 @@
 ﻿using AutoFixture;
 using CadavizCodeHub.Core.Persistence.MongoDB.Repositories;
 using CadavizCodeHub.Core.Persistence.Setup;
-using CadavizCodeHub.Tests.Shared.TestClasses.Domain;
+using CadavizCodeHub.Core.Tests.FakeClasses.Domain;
+using CadavizCodeHub.Core.Tests.FakeClasses.Persistence;
 using CadavizCodeHub.Tests.Shared.Tools;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
@@ -19,31 +20,31 @@ namespace CadavizCodeHub.Persistence.UnitTests.Repositories
 {
     public class MongodbRepositoryBaseTests : TestsBase
     {
-        private readonly Mock<IMongoCollection<TestEntityBase>> _mockCollection;
-        private readonly MongodbRepositoryBase<TestEntityBase> _repository;
+        private readonly Mock<IMongoCollection<FakeEntityBase>> _mockCollection;
+        private readonly MongodbRepositoryBase<FakeEntityBase> _repository;
 
         public MongodbRepositoryBaseTests()
         {
             var databaseSettings = Fixture.Create<DatabaseSettings>();
             var _mockMongoClient = new Mock<IMongoClient>();
             var _mockDatabase = new Mock<IMongoDatabase>();
-            var _loggerMock = new Mock<ILogger<MongodbRepositoryBaseTest>>();
+            var _loggerMock = new Mock<ILogger<FakeMongodbRepositoryBase>>();
 
-            _mockCollection = new Mock<IMongoCollection<TestEntityBase>>();
+            _mockCollection = new Mock<IMongoCollection<FakeEntityBase>>();
 
             _mockMongoClient.Setup(x => x.GetDatabase(It.IsAny<string>(), It.IsAny<MongoDatabaseSettings>()))
                 .Returns(_mockDatabase.Object);
 
-            _mockDatabase.Setup(x => x.GetCollection<TestEntityBase>(It.IsAny<string>(), It.IsAny<MongoCollectionSettings>()))
+            _mockDatabase.Setup(x => x.GetCollection<FakeEntityBase>(It.IsAny<string>(), It.IsAny<MongoCollectionSettings>()))
                          .Returns(_mockCollection.Object);
 
-            _repository = new MongodbRepositoryBaseTest(databaseSettings, _mockMongoClient.Object, nameof(TestEntityBase), _loggerMock.Object);
+            _repository = new FakeMongodbRepositoryBase(databaseSettings, _mockMongoClient.Object, _loggerMock.Object);
         }
         [Fact]
         public async Task CreateAsync_ShouldInsertEntity()
         {
             // Arrange
-            var expectedEntity = new TestEntityBase();
+            var expectedEntity = new FakeEntityBase();
 
             _mockCollection.Setup(x => x.InsertOneAsync(expectedEntity, It.IsAny<InsertOneOptions>(), It.IsAny<CancellationToken>()))
                            .Returns(Task.CompletedTask);
@@ -56,7 +57,7 @@ namespace CadavizCodeHub.Persistence.UnitTests.Repositories
 
             _mockCollection.Verify(
                 x => x.InsertOneAsync(
-                    It.Is<TestEntityBase>(e => e == expectedEntity),
+                    It.Is<FakeEntityBase>(e => e == expectedEntity),
                     It.IsAny<InsertOneOptions>(),
                     It.IsAny<CancellationToken>()),
                 Times.Once);
@@ -66,13 +67,13 @@ namespace CadavizCodeHub.Persistence.UnitTests.Repositories
         public async Task UpdateAsync_ShouldUpdateEntity()
         {
             // Arrange
-            var expectedEntity = new TestEntityBase();
+            var expectedEntity = new FakeEntityBase();
 
             var replaceResult = new ReplaceOneResult.Acknowledged(1, 1, new BsonBinaryData(expectedEntity.Id, GuidRepresentation.Standard));
 
             _mockCollection
                 .Setup(x => x.ReplaceOneAsync(
-                    It.Is<FilterDefinition<TestEntityBase>>(f => f != null),
+                    It.Is<FilterDefinition<FakeEntityBase>>(f => f != null),
                     expectedEntity,
                     It.IsAny<ReplaceOptions>(),
                     It.IsAny<CancellationToken>()))
@@ -86,7 +87,7 @@ namespace CadavizCodeHub.Persistence.UnitTests.Repositories
 
             _mockCollection.Verify(
                 x => x.ReplaceOneAsync(
-                    It.Is<FilterDefinition<TestEntityBase>>(f => f != null),
+                    It.Is<FilterDefinition<FakeEntityBase>>(f => f != null),
                     expectedEntity,
                     It.IsAny<ReplaceOptions>(),
                     It.IsAny<CancellationToken>()),
@@ -102,7 +103,7 @@ namespace CadavizCodeHub.Persistence.UnitTests.Repositories
 
             _mockCollection
                 .Setup(x => x.DeleteOneAsync(
-                    It.Is<FilterDefinition<TestEntityBase>>(f => f != null),
+                    It.Is<FilterDefinition<FakeEntityBase>>(f => f != null),
                     It.IsAny<CancellationToken>()))
                 .ReturnsAsync(deleteResult);
 
@@ -114,7 +115,7 @@ namespace CadavizCodeHub.Persistence.UnitTests.Repositories
 
             _mockCollection.Verify(
                 x => x.DeleteOneAsync(
-                    It.Is<FilterDefinition<TestEntityBase>>(f => f != null),
+                    It.Is<FilterDefinition<FakeEntityBase>>(f => f != null),
                     It.IsAny<CancellationToken>()),
                 Times.Once);
         }
@@ -128,7 +129,7 @@ namespace CadavizCodeHub.Persistence.UnitTests.Repositories
 
             _mockCollection
                 .Setup(x => x.DeleteOneAsync(
-                    It.Is<FilterDefinition<TestEntityBase>>(f => f != null),
+                    It.Is<FilterDefinition<FakeEntityBase>>(f => f != null),
                     It.IsAny<CancellationToken>()))
                 .ReturnsAsync(deleteResult);
 
@@ -140,7 +141,7 @@ namespace CadavizCodeHub.Persistence.UnitTests.Repositories
 
             _mockCollection.Verify(
                 x => x.DeleteOneAsync(
-                    It.Is<FilterDefinition<TestEntityBase>>(f => f != null),
+                    It.Is<FilterDefinition<FakeEntityBase>>(f => f != null),
                     It.IsAny<CancellationToken>()),
                 Times.Once);
         }
@@ -149,14 +150,14 @@ namespace CadavizCodeHub.Persistence.UnitTests.Repositories
         public async Task GetByIdAsync_ShouldReturnEntity_WhenEntityExists()
         {
             // Arrange
-            var expectedEntity = new TestEntityBase();
-            var expectedResult = new List<TestEntityBase> { expectedEntity };
+            var expectedEntity = new FakeEntityBase();
+            var expectedResult = new List<FakeEntityBase> { expectedEntity };
 
             var mockCursor = MockCursor(expectedResult);
 
             _mockCollection
-                .Setup(x => x.FindAsync(It.IsAny<FilterDefinition<TestEntityBase>>(),
-                                        It.IsAny<FindOptions<TestEntityBase>>(),
+                .Setup(x => x.FindAsync(It.IsAny<FilterDefinition<FakeEntityBase>>(),
+                                        It.IsAny<FindOptions<FakeEntityBase>>(),
                                         It.IsAny<CancellationToken>()))
                 .ReturnsAsync(mockCursor.Object);
 
@@ -173,13 +174,13 @@ namespace CadavizCodeHub.Persistence.UnitTests.Repositories
             // Arrange
             var id = Guid.NewGuid();
 
-            var expectedResult = Enumerable.Empty<TestEntityBase>();
+            var expectedResult = Enumerable.Empty<FakeEntityBase>();
 
             var mockCursor = MockCursor(expectedResult);
 
             _mockCollection
-                .Setup(x => x.FindAsync(It.IsAny<FilterDefinition<TestEntityBase>>(),
-                                        It.IsAny<FindOptions<TestEntityBase>>(),
+                .Setup(x => x.FindAsync(It.IsAny<FilterDefinition<FakeEntityBase>>(),
+                                        It.IsAny<FindOptions<FakeEntityBase>>(),
                                         It.IsAny<CancellationToken>()))
                 .ReturnsAsync(mockCursor.Object);
 
@@ -193,17 +194,17 @@ namespace CadavizCodeHub.Persistence.UnitTests.Repositories
         [Fact]
         public async Task GetByFilterAsync_ShouldReturnEntities_WhenEntitiesExist()
         {
-            var entity1 = new TestEntityBase();
-            var entity2 = new TestEntityBase();
-            var expectedResult = new List<TestEntityBase> { entity1, entity2 };
+            var entity1 = new FakeEntityBase();
+            var entity2 = new FakeEntityBase();
+            var expectedResult = new List<FakeEntityBase> { entity1, entity2 };
 
-            var filter = Builders<TestEntityBase>.Filter.Empty;
+            var filter = Builders<FakeEntityBase>.Filter.Empty;
 
             var mockCursor = MockCursor(expectedResult);
 
             _mockCollection
-                .Setup(x => x.FindAsync(It.IsAny<FilterDefinition<TestEntityBase>>(),
-                                        It.IsAny<FindOptions<TestEntityBase>>(),
+                .Setup(x => x.FindAsync(It.IsAny<FilterDefinition<FakeEntityBase>>(),
+                                        It.IsAny<FindOptions<FakeEntityBase>>(),
                                         It.IsAny<CancellationToken>()))
                 .ReturnsAsync(mockCursor.Object);
 
@@ -218,15 +219,15 @@ namespace CadavizCodeHub.Persistence.UnitTests.Repositories
         [Fact]
         public async Task GetByFilterAsync_ShouldReturnEntities_WhenEntitiesDoesNotExist()
         {
-            var expectedResult = Enumerable.Empty<TestEntityBase>();
+            var expectedResult = Enumerable.Empty<FakeEntityBase>();
 
-            var filter = Builders<TestEntityBase>.Filter.Empty;
+            var filter = Builders<FakeEntityBase>.Filter.Empty;
 
             var mockCursor = MockCursor(expectedResult);
 
             _mockCollection
-                .Setup(x => x.FindAsync(It.IsAny<FilterDefinition<TestEntityBase>>(),
-                                        It.IsAny<FindOptions<TestEntityBase>>(),
+                .Setup(x => x.FindAsync(It.IsAny<FilterDefinition<FakeEntityBase>>(),
+                                        It.IsAny<FindOptions<FakeEntityBase>>(),
                                         It.IsAny<CancellationToken>()))
                 .ReturnsAsync(mockCursor.Object);
 
@@ -254,10 +255,5 @@ namespace CadavizCodeHub.Persistence.UnitTests.Repositories
 
             return _mockCursor;
         }
-    }
-
-    public class MongodbRepositoryBaseTest : MongodbRepositoryBase<TestEntityBase>
-    {
-        public MongodbRepositoryBaseTest(DatabaseSettings databaseSettings, IMongoClient mongoClient, string collectionName, ILogger<MongodbRepositoryBaseTest> logger) : base(databaseSettings, mongoClient, collectionName, logger) { }
     }
 }

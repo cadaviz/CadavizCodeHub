@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
-namespace CadavizCodeHub.Application.Setup
+namespace CadavizCodeHub.Orders.Application.Setup
 {
     [ExcludeFromCodeCoverage]
     internal static class SetupEventManager

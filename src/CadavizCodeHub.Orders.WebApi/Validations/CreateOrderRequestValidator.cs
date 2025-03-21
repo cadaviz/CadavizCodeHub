@@ -3,7 +3,7 @@ using CadavizCodeHub.Orders.WebApi.Requests;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 
-namespace CadavizCodeHub.WebApi.Validations
+namespace CadavizCodeHub.Orders.WebApi.Validations
 {
     internal class CreateOrderRequestValidator : ValidatorBase<CreateOrderRequest>
     {

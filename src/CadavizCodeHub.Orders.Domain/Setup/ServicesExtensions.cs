@@ -1,9 +1,9 @@
-﻿using CadavizCodeHub.Domain.DomainServices;
+﻿using CadavizCodeHub.Orders.Domain.DomainServices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
 
-namespace CadavizCodeHub.Domain.Setup
+namespace CadavizCodeHub.Orders.Domain.Setup
 {
     [ExcludeFromCodeCoverage]
     public static class ServicesExtensions

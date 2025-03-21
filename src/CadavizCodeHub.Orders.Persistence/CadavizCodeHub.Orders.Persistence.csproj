@@ -16,7 +16,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\CadavizCodeHub.Core.Persistence.MongoDB\CadavizCodeHub.Core.Persistence.MongoDB.csproj" />
 		<ProjectReference Include="..\CadavizCodeHub.Core.Persistence\CadavizCodeHub.Core.Persistence.csproj" />
-		<ProjectReference Include="..\CadavizCodeHub.Domain\CadavizCodeHub.Orders.Domain.csproj" />
 		<ProjectReference Include="..\CadavizCodeHub.Orders.Domain\CadavizCodeHub.Orders.Domain.csproj" />
 	</ItemGroup>
 	

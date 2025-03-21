@@ -12,7 +12,7 @@ namespace CadavizCodeHub.Core.Tests.Domain.Entities
         public void Constructor_ShouldGenerateNewGuid_WhenNoGuidPassed()
         {
             // Arrange & Act
-            var entity = new TestEntityBase();
+            var entity = new FakeEntityBase();
 
             // Assert
             entity.Id.Should().NotBe(Guid.Empty);
@@ -23,8 +23,8 @@ namespace CadavizCodeHub.Core.Tests.Domain.Entities
         {
             // Arrange
             var id = Guid.NewGuid();
-            var entity1 = new TestEntityBase(id);
-            var entity2 = new TestEntityBase(id);
+            var entity1 = new FakeEntityBase(id);
+            var entity2 = new FakeEntityBase(id);
 
             // Act
             var result = entity1.Equals(entity2);
@@ -37,8 +37,8 @@ namespace CadavizCodeHub.Core.Tests.Domain.Entities
         public void Equals_ShouldReturnFalse_WhenEntitiesHaveDifferentIds()
         {
             // Arrange
-            var entity1 = new TestEntityBase(Guid.NewGuid());
-            var entity2 = new TestEntityBase(Guid.NewGuid());
+            var entity1 = new FakeEntityBase(Guid.NewGuid());
+            var entity2 = new FakeEntityBase(Guid.NewGuid());
 
             // Act
             var result = entity1.Equals(entity2);
@@ -52,8 +52,8 @@ namespace CadavizCodeHub.Core.Tests.Domain.Entities
         {
             // Arrange
             var id = Guid.NewGuid();
-            var entity1 = new TestEntityBase(id);
-            var entity2 = new TestEntityBase(id);
+            var entity1 = new FakeEntityBase(id);
+            var entity2 = new FakeEntityBase(id);
 
             // Act & Assert
             entity1.GetHashCode().Should().Be(entity2.GetHashCode());
@@ -63,8 +63,8 @@ namespace CadavizCodeHub.Core.Tests.Domain.Entities
         public void GetHashCode_ShouldReturnDifferentHash_WhenEntitiesHaveDifferentIds()
         {
             // Arrange
-            var entity1 = new TestEntityBase(Guid.NewGuid());
-            var entity2 = new TestEntityBase(Guid.NewGuid());
+            var entity1 = new FakeEntityBase(Guid.NewGuid());
+            var entity2 = new FakeEntityBase(Guid.NewGuid());
 
             // Act & Assert
             entity1.GetHashCode().Should().NotBe(entity2.GetHashCode());

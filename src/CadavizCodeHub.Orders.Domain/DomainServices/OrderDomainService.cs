@@ -1,4 +1,4 @@
-﻿namespace CadavizCodeHub.Domain.DomainServices
+﻿namespace CadavizCodeHub.Orders.Domain.DomainServices
 {
     internal class OrderDomainService : IOrderDomainService
     {

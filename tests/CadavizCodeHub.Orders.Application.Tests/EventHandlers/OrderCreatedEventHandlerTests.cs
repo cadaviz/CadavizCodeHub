@@ -1,5 +1,5 @@
-﻿using CadavizCodeHub.Application.EventHandlers;
-using CadavizCodeHub.Domain.DomainEvents;
+﻿using CadavizCodeHub.Orders.Application.EventHandlers;
+using CadavizCodeHub.Orders.Domain.DomainEvents;
 using CadavizCodeHub.Tests.Shared.Tools;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CadavizCodeHub.Application.UnitTests.EventHandlers
+namespace CadavizCodeHub.Orders.Application.Tests.EventHandlers
 {
     public class OrderCreatedEventHandlerTests : TestsBase
     {

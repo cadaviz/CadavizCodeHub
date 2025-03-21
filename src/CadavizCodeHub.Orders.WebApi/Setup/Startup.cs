@@ -1,7 +1,7 @@
 ﻿using CadavizCodeHub.Core.Logging.Setup;
 using CadavizCodeHub.Core.WebApi.Setup;
-using CadavizCodeHub.Domain.Setup;
 using CadavizCodeHub.Orders.Application.Setup;
+using CadavizCodeHub.Orders.Domain.Setup;
 using CadavizCodeHub.WebApi.Setup;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;

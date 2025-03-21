@@ -1,9 +1,9 @@
 ﻿using CadavizCodeHub.Core.Logging.Extensions;
-using CadavizCodeHub.Domain.DomainEvents;
+using CadavizCodeHub.Orders.Domain.DomainEvents;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace CadavizCodeHub.Application.EventHandlers
+namespace CadavizCodeHub.Orders.Application.EventHandlers
 {
     internal class OrderCreatedEventHandler : INotificationHandler<OrderCreatedEvent>
     {
