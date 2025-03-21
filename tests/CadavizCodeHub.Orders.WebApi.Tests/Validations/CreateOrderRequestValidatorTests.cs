@@ -1,14 +1,14 @@
 ﻿using AutoFixture;
 using CadavizCodeHub.Orders.WebApi.Requests;
 using CadavizCodeHub.Orders.WebApi.Validations;
-using CadavizCodeHub.Tests.Shared.Tools;
+using CadavizCodeHub.Tests.Shared.Shared;
 using FluentAssertions;
 using FluentValidation.TestHelper;
 using Xunit;
 
 namespace CadavizCodeHub.Orders.WebApi.Tests.Validations
 {
-    public class CreateOrderRequestValidatorTests : TestsBase
+    public class CreateOrderRequestValidatorTests : TestBase
     {
         private readonly CreateOrderRequestValidator _validator = new();
 

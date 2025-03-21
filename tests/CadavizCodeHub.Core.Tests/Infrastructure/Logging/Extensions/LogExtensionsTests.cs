@@ -1,5 +1,5 @@
 ﻿using CadavizCodeHub.Core.Logging.Extensions;
-using CadavizCodeHub.Tests.Shared.Tools;
+using CadavizCodeHub.Tests.Shared.Shared;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -9,7 +9,7 @@ using Xunit;
 
 namespace CadavizCodeHub.Core.Tests.Infrastructure.Logging.Extensions
 {
-    public class LogExtensionsTests : TestsBase
+    public class LogExtensionsTests : TestBase
     {
         private readonly Mock<ILogger> _loggerMock;
 

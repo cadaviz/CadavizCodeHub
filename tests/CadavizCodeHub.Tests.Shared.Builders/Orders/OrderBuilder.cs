@@ -3,9 +3,8 @@ using CadavizCodeHub.Orders.Domain.Entities;
 using CadavizCodeHub.Tests.Shared.Fixtures;
 using System.Collections.Generic;
 
-namespace CadavizCodeHub.Tests.Shared.Builders.Builders
+namespace CadavizCodeHub.Tests.Shared.Builders.Orders
 {
-    //TODO: remover daqui
     public static class OrderBuilder
     {
         private static readonly Fixture Fixture = FixtureHelper.CreateFixture();

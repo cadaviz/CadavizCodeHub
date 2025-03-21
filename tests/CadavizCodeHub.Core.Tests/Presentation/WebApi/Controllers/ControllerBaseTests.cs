@@ -1,6 +1,6 @@
 ﻿using CadavizCodeHub.Core.Tests.FakeClasses.WebApi;
 using CadavizCodeHub.Core.WebApi.Responses;
-using CadavizCodeHub.Tests.Shared.Tools;
+using CadavizCodeHub.Tests.Shared.Shared;
 using FluentAssertions;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
@@ -12,7 +12,7 @@ using Xunit;
 
 namespace CadavizCodeHub.Core.Tests.Presentation.WebApi.Controllers
 {
-    public class ControllerBaseTests : TestsBase
+    public class ControllerBaseTests : TestBase
     {
         private readonly FakeControllerBase _controller;
 

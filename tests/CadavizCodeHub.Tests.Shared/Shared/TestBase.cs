@@ -3,14 +3,13 @@ using AutoMapper;
 using CadavizCodeHub.Tests.Shared.Fixtures;
 using System;
 
-namespace CadavizCodeHub.Tests.Shared.Tools
+namespace CadavizCodeHub.Tests.Shared.Shared
 {
-    //TODO: revisar nomenclatura
-    public abstract class TestsBase
+    public abstract class TestBase
     {
         protected Fixture Fixture { get; }
 
-        protected TestsBase()
+        protected TestBase()
         {
             Fixture = FixtureHelper.CreateFixture();
         }

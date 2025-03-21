@@ -1,4 +1,4 @@
-﻿using CadavizCodeHub.Domain.DomainEvents;
+﻿using CadavizCodeHub.Orders.Domain.DomainEvents;
 using CadavizCodeHub.Orders.Domain.Entities;
 using CadavizCodeHub.Orders.Domain.Repositories;
 using MediatR;

@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using CadavizCodeHub.Orders.WebApi.Mappers;
 using CadavizCodeHub.Orders.WebApi.Responses;
-using CadavizCodeHub.Tests.Shared.Builders.Builders;
-using CadavizCodeHub.Tests.Shared.Tools;
+using CadavizCodeHub.Tests.Shared.Builders.Orders;
+using CadavizCodeHub.Tests.Shared.Shared;
 using FluentAssertions;
 using Xunit;
 
 namespace CadavizCodeHub.Orders.WebApi.Tests.Mappers
 {
-    public class OrderResponseProfileTests : TestsBase
+    public class OrderResponseProfileTests : TestBase
     {
         private readonly IMapper _mapper;
 

@@ -1,6 +1,6 @@
 ﻿using CadavizCodeHub.Orders.Domain.Entities;
-using CadavizCodeHub.Tests.Shared.Builders.Builders;
-using CadavizCodeHub.Tests.Shared.Tools;
+using CadavizCodeHub.Tests.Shared.Builders.Orders;
+using CadavizCodeHub.Tests.Shared.Shared;
 using FluentAssertions;
 using System;
 using System.Linq;
@@ -8,7 +8,7 @@ using Xunit;
 
 namespace CadavizCodeHub.Orders.Domain.Tests.Entities
 {
-    public class OrderTests : TestsBase
+    public class OrderTests : TestBase
     {
         [Fact]
         public void Order_ShouldHaveImmutableItems_WhenItemsAreModifiedExternally()

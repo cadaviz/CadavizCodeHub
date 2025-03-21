@@ -1,12 +1,12 @@
 ﻿using CadavizCodeHub.Core.WebApi.Responses;
-using CadavizCodeHub.Tests.Shared.Tools;
+using CadavizCodeHub.Tests.Shared.Shared;
 using FluentAssertions;
 using System;
 using Xunit;
 
 namespace CadavizCodeHub.Core.Tests.Presentation.WebApi.Responses
 {
-    public class ApplicationErrorResponseTests : TestsBase
+    public class ApplicationErrorResponseTests : TestBase
     {
         [Fact]
         public void Constructor_ShouldSetStatusCodeAndMessages()

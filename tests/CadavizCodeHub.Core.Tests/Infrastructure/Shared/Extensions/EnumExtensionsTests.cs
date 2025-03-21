@@ -1,12 +1,12 @@
 ﻿using CadavizCodeHub.Core.Shared.Extensions;
-using CadavizCodeHub.Tests.Shared.Tools;
+using CadavizCodeHub.Tests.Shared.Shared;
 using FluentAssertions;
 using System;
 using Xunit;
 
 namespace CadavizCodeHub.Core.Tests.Infrastructure.Shared.Extensions
 {
-    public class EnumExtensionsTests : TestsBase
+    public class EnumExtensionsTests : TestBase
     {
         private enum SourceEnum { One, Two, Three }
         private enum DestinationEnum { One, Two, Three, Four }

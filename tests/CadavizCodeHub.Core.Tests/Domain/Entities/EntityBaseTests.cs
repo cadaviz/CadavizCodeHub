@@ -1,12 +1,12 @@
-﻿using CadavizCodeHub.Tests.Shared.TestClasses.Domain;
-using CadavizCodeHub.Tests.Shared.Tools;
+﻿using CadavizCodeHub.Core.Tests.FakeClasses.Domain;
+using CadavizCodeHub.Tests.Shared.Shared;
 using FluentAssertions;
 using System;
 using Xunit;
 
 namespace CadavizCodeHub.Core.Tests.Domain.Entities
 {
-    public class EntityBaseTests : TestsBase
+    public class EntityBaseTests : TestBase
     {
         [Fact]
         public void Constructor_ShouldGenerateNewGuid_WhenNoGuidPassed()

@@ -2,8 +2,8 @@
 using CadavizCodeHub.Orders.Domain.DomainEvents;
 using CadavizCodeHub.Orders.Domain.Entities;
 using CadavizCodeHub.Orders.Domain.Repositories;
-using CadavizCodeHub.Tests.Shared.Builders.Builders;
-using CadavizCodeHub.Tests.Shared.Tools;
+using CadavizCodeHub.Tests.Shared.Builders.Orders;
+using CadavizCodeHub.Tests.Shared.Shared;
 using FluentAssertions;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -15,7 +15,7 @@ using Xunit;
 
 namespace CadavizCodeHub.Orders.Application.Tests.Services
 {
-    public class OrderApplicationServiceTests : TestsBase
+    public class OrderApplicationServiceTests : TestBase
     {
         private readonly Mock<ILogger<OrderApplicationService>> _loggerMock;
         private readonly Mock<IMediator> _mediatorMock;

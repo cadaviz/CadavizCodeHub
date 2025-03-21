@@ -3,13 +3,13 @@ using AutoMapper;
 using CadavizCodeHub.Orders.Domain.Entities;
 using CadavizCodeHub.Orders.WebApi.Mappers;
 using CadavizCodeHub.Orders.WebApi.Requests;
-using CadavizCodeHub.Tests.Shared.Tools;
+using CadavizCodeHub.Tests.Shared.Shared;
 using FluentAssertions;
 using Xunit;
 
 namespace CadavizCodeHub.Orders.WebApi.Tests.Mappers
 {
-    public class CreateOrderRequestProfileTests : TestsBase
+    public class CreateOrderRequestProfileTests : TestBase
     {
         private readonly IMapper _mapper;
 

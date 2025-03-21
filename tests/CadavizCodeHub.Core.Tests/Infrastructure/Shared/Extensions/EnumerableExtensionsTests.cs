@@ -1,11 +1,11 @@
-﻿using CadavizCodeHub.Tests.Shared.Tools;
+﻿using CadavizCodeHub.Tests.Shared.Shared;
 using FluentAssertions;
 using System.Collections.Generic;
 using Xunit;
 
 namespace CadavizCodeHub.Core.Tests.Infrastructure.Shared.Extensions
 {
-    public class EnumerableExtensionsTests : TestsBase
+    public class EnumerableExtensionsTests : TestBase
     {
         [Theory]
 #pragma warning disable CA1861

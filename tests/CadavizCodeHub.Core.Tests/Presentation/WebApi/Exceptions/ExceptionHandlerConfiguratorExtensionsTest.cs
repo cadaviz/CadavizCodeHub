@@ -1,6 +1,6 @@
 ﻿using CadavizCodeHub.Core.WebApi.Exceptions;
 using CadavizCodeHub.Core.WebApi.Responses;
-using CadavizCodeHub.Tests.Shared.Tools;
+using CadavizCodeHub.Tests.Shared.Shared;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +14,7 @@ using Xunit;
 
 namespace CadavizCodeHub.Core.Tests.Presentation.WebApi.Exceptions
 {
-    public class ExceptionHandlerConfiguratorExtensionsTest : TestsBase
+    public class ExceptionHandlerConfiguratorExtensionsTest : TestBase
     {
         private readonly HttpResponseExceptionFilter httpResponseExceptionFilter;
 

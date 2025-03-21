@@ -1,12 +1,12 @@
 ﻿using CadavizCodeHub.Core.Persistence.Setup;
-using CadavizCodeHub.Tests.Shared.Tools;
+using CadavizCodeHub.Tests.Shared.Shared;
 using FluentAssertions;
 using System;
 using Xunit;
 
 namespace CadavizCodeHub.Core.Tests.Infrastructure.Persistence.Setup
 {
-   public class DatabaseSettingsTests : TestsBase
+   public class DatabaseSettingsTests : TestBase
     {
         [Fact]
         public void DatabaseSettings_ShouldBeCreated_WhenValidParametersAreProvided()

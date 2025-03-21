@@ -1,6 +1,5 @@
 ﻿using CadavizCodeHub.Core.Shared.Validators;
 using CadavizCodeHub.Orders.WebApi.Requests;
-using CadavizCodeHub.WebApi.Validations;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 

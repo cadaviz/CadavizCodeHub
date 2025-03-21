@@ -1,6 +1,6 @@
 ﻿using CadavizCodeHub.Orders.Application.EventHandlers;
 using CadavizCodeHub.Orders.Domain.DomainEvents;
-using CadavizCodeHub.Tests.Shared.Tools;
+using CadavizCodeHub.Tests.Shared.Shared;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -11,7 +11,7 @@ using Xunit;
 
 namespace CadavizCodeHub.Orders.Application.Tests.EventHandlers
 {
-    public class OrderCreatedEventHandlerTests : TestsBase
+    public class OrderCreatedEventHandlerTests : TestBase
     {
         [Fact]
         public void OrderCreatedEventHandler_ShouldCompleteTask_WhenEventIsHandled()

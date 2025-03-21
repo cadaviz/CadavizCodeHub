@@ -1,12 +1,12 @@
 ﻿using AutoFixture;
 using CadavizCodeHub.Orders.Domain.Entities;
-using CadavizCodeHub.Tests.Shared.Tools;
+using CadavizCodeHub.Tests.Shared.Shared;
 using FluentAssertions;
 using Xunit;
 
 namespace CadavizCodeHub.Orders.Domain.Tests.Entities
 {
-    public class ItemTests : TestsBase
+    public class ItemTests : TestBase
     {
         [Fact]
         public void Item_ShouldCalculateTotal_WhenQuantityIsMultipliedByProductPrice()

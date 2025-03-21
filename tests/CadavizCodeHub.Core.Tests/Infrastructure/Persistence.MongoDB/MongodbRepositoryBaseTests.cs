@@ -3,7 +3,7 @@ using CadavizCodeHub.Core.Persistence.MongoDB.Repositories;
 using CadavizCodeHub.Core.Persistence.Setup;
 using CadavizCodeHub.Core.Tests.FakeClasses.Domain;
 using CadavizCodeHub.Core.Tests.FakeClasses.Persistence;
-using CadavizCodeHub.Tests.Shared.Tools;
+using CadavizCodeHub.Tests.Shared.Shared;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
@@ -18,7 +18,7 @@ using Xunit;
 
 namespace CadavizCodeHub.Persistence.UnitTests.Repositories
 {
-    public class MongodbRepositoryBaseTests : TestsBase
+    public class MongodbRepositoryBaseTests : TestBase
     {
         private readonly Mock<IMongoCollection<FakeEntityBase>> _mockCollection;
         private readonly MongodbRepositoryBase<FakeEntityBase> _repository;
