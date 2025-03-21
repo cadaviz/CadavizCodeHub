@@ -58,7 +58,11 @@ jobs:
         uses: ./.github/actions/clear-environment
 
       - name: 🧪 Run tests
-        run: dotnet test tests/CadavizCodeHub.Orders.* --logger "trx;LogFileName=test-results-orders.trx"
+        run: |
+         dotnet test tests/CadavizCodeHub.Orders.Application.Tests --logger "trx;LogFileName=test-results-orders-application.trx"
+         dotnet test tests/CadavizCodeHub.Orders.Domain.Tests --logger "trx;LogFileName=test-results-orders-domain.trx"
+         dotnet test tests/CadavizCodeHub.Orders.Persistence.Tests --logger "trx;LogFileName=test-results-orders-persistence.trx"
+         dotnet test tests/CadavizCodeHub.Orders.WebApi.Tests --logger "trx;LogFileName=test-results-orders-webapi.trx"
 
       - name: 📊 Publish test results
         uses: actions/upload-artifact@v4
