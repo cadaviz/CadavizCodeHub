@@ -43,7 +43,7 @@ jobs:
       - name: 📊 Publish test results
         uses: actions/upload-artifact@v4
         with:
-          name: CoreTestResults
+          name: TestResults_Core
           path: tests/CadavizCodeHub.Core.Tests/TestResults/*.trx
           # path: tests/**/TestResults/*.trx
           if-no-files-found: warn
@@ -63,7 +63,7 @@ jobs:
       - name: 📊 Publish test results
         uses: actions/upload-artifact@v4
         with:
-          name: OrdersTestResults
+          name: TestResults_Orders
           path: tests/Orders.*/TestResults/*.trx
           if-no-files-found: warn
   generate-test-reports:
@@ -81,7 +81,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          pattern: *TestResults*
+          pattern: TestResults_*
           merge-multiple: true
           run-id: ${{ github.event.workflow_run.id }}
 
