@@ -68,7 +68,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: TestResults_Orders
-          path: tests/Orders.*/TestResults/*.trx
+          path: tests/CadavizCodeHub.Orders.*/TestResults/*.trx
           if-no-files-found: warn
   generate-test-reports:
     runs-on: ubuntu-latest
