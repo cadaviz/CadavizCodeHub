@@ -12,6 +12,7 @@ namespace CadavizCodeHub.Core.Tests.Infrastructure.Logging.Extensions
     public class LogExtensionsTests : TestBase
     {
         private readonly Mock<ILogger> _loggerMock;
+        private static readonly JsonSerializerOptions jsonSerializerOptions = new() { WriteIndented = false };
 
         public LogExtensionsTests()
         {
@@ -38,7 +39,7 @@ namespace CadavizCodeHub.Core.Tests.Infrastructure.Logging.Extensions
             var json = obj.SerializeForLog();
 
             // Assert
-            json.Should().Be(JsonSerializer.Serialize(obj, new JsonSerializerOptions { WriteIndented = false }));
+            json.Should().Be(JsonSerializer.Serialize(obj, jsonSerializerOptions));
         }
 
         [Fact]

@@ -25,12 +25,12 @@ namespace CadavizCodeHub.Core.Logging.Setup
                 .Enrich.FromLogContext()
                 ;
 
-            if (loggingSettings.WriteLogTo.HasFlag(WriteLogTo.Console))
+            if (loggingSettings.WriteLogTo.HasFlag(LogDestinations.Console))
             {
                 loggerConfiguration.WriteTo.Console(outputTemplate: loggingSettings.OutputTemplate);
             }
 
-            if (loggingSettings.WriteLogTo.HasFlag(WriteLogTo.File))
+            if (loggingSettings.WriteLogTo.HasFlag(LogDestinations.File))
             {
                 loggerConfiguration.WriteTo.File(
                     path: loggingSettings.FileSettings.Path,

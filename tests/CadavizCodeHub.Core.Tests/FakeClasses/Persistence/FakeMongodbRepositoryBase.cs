@@ -13,5 +13,6 @@ namespace CadavizCodeHub.Core.Tests.FakeClasses.Persistence
         public FakeMongodbRepositoryBase(DatabaseSettings databaseSettings, IMongoClient mongoClient, ILogger<FakeMongodbRepositoryBase> logger)
             : base(databaseSettings, mongoClient, logger) { }
 
+        public string CollectionNameForTest => CollectionName;
     }
 }

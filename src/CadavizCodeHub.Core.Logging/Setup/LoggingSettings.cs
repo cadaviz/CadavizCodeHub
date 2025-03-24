@@ -6,7 +6,7 @@ namespace CadavizCodeHub.Core.Logging.Setup
     [ExcludeFromCodeCoverage]
     public class LoggingSettings
     {
-        public WriteLogTo WriteLogTo { get; set; } = WriteLogTo.Console;
+        public LogDestinations WriteLogTo { get; set; } = LogDestinations.Console;
         public LogLevel MinimumLogLevel { get; set; } = LogLevel.Information;
         public string OutputTemplate { get; set; } = "[{Level:u3}][{Timestamp:HH:mm:ss}] Message:{Message}{NewLine}Properties:{Properties:j} at {SourceContext}{NewLine}{Exception:lj}";
         public LoggingToFileSettings FileSettings { get; set; } = new LoggingToFileSettings();
@@ -21,7 +21,7 @@ namespace CadavizCodeHub.Core.Logging.Setup
     }
 
     [Flags]
-    public enum WriteLogTo
+    public enum LogDestinations
     {
         None = 0,
         Console = 1,

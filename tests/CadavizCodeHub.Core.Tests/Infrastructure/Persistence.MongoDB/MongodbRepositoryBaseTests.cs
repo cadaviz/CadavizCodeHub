@@ -21,7 +21,7 @@ namespace CadavizCodeHub.Persistence.UnitTests.Repositories
     public class MongodbRepositoryBaseTests : TestBase
     {
         private readonly Mock<IMongoCollection<FakeEntityBase>> _mockCollection;
-        private readonly MongodbRepositoryBase<FakeEntityBase> _repository;
+        private readonly FakeMongodbRepositoryBase _repository;
 
         public MongodbRepositoryBaseTests()
         {
@@ -194,6 +194,7 @@ namespace CadavizCodeHub.Persistence.UnitTests.Repositories
         [Fact]
         public async Task GetByFilterAsync_ShouldReturnEntities_WhenEntitiesExist()
         {
+            // Arrange
             var entity1 = new FakeEntityBase();
             var entity2 = new FakeEntityBase();
             var expectedResult = new List<FakeEntityBase> { entity1, entity2 };
@@ -219,6 +220,7 @@ namespace CadavizCodeHub.Persistence.UnitTests.Repositories
         [Fact]
         public async Task GetByFilterAsync_ShouldReturnEntities_WhenEntitiesDoesNotExist()
         {
+            // Arrange
             var expectedResult = Enumerable.Empty<FakeEntityBase>();
 
             var filter = Builders<FakeEntityBase>.Filter.Empty;
@@ -236,6 +238,13 @@ namespace CadavizCodeHub.Persistence.UnitTests.Repositories
 
             // Assert
             result.Should().BeEmpty();
+        }
+
+        [Fact]
+        public void DatabaseName_ShouldBeDefault()
+        {
+            // Assert
+            _repository.CollectionNameForTest.Should().Be("FakeEntityBase");
         }
 
         private static Mock<IAsyncCursor<T>> MockCursor<T>(IEnumerable<T> expectedValues)

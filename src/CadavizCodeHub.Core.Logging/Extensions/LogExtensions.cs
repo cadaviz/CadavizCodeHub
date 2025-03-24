@@ -31,7 +31,9 @@ namespace CadavizCodeHub.Core.Logging.Extensions
         {
             if (logger.IsEnabled(logLevel))
             {
+#pragma warning disable CA2254
                 logger.Log(logLevel, message, SerializeArgsIfNecessary(args));
+#pragma warning restore CA2254
             }
         }
 
