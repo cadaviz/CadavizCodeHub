@@ -42,5 +42,17 @@ namespace CadavizCodeHub.Core.Tests.Presentation.WebApi.Responses
             // Assert
             act.Should().Throw<ArgumentException>();
         }
+
+
+        [Fact]
+        public void ApplicationMessage_IEqualableWorksCorrectly()
+        {
+            // Arrange
+            var message1 = new ApplicationMessage("Some message");
+            var message2 = new ApplicationMessage("Some message");
+
+            // Act & Assert
+            message1.Should().Be(message2);
+        }
     }
 }
