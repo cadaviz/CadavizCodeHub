@@ -8,7 +8,7 @@ namespace CadavizCodeHub.Core.Domain.Repositories
     public interface IReadRepositoryBase<T>
         where T : IEntity
     {
-        virtual static string DatabaseName => "default";
+        virtual string DatabaseName => "default";
 
         Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
     }

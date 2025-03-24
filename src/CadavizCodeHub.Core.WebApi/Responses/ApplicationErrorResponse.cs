@@ -9,7 +9,7 @@ namespace CadavizCodeHub.Core.WebApi.Responses
     /// </summary>
     /// <param name="StatusCode">Response http status code</param>
     /// <param name="Messages">List of messages</param>
-    public record ApplicationErrorResponse
+    public record class ApplicationErrorResponse : IResponse
     {
         public int StatusCode { get; }
         public IReadOnlyCollection<ApplicationMessage> Messages { get; }

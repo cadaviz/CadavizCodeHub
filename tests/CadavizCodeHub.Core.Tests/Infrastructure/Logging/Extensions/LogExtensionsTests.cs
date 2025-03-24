@@ -148,5 +148,31 @@ namespace CadavizCodeHub.Core.Tests.Infrastructure.Logging.Extensions
                 ),
                 Times.Once);
         }
+
+        [Theory]
+        [InlineData("test")]
+        [InlineData(1)]
+        [InlineData(null)]
+        public void LogDebugIfEnabled_ShouldNotSerializePrimitiveArguments(object? primitiveArguments)
+        {
+            // Arrange
+            _loggerMock.Setup(l => l.IsEnabled(LogLevel.Debug)).Returns(true);
+            string message = "Simple object log with {PrimitiveArguments}";
+            var expectedValue = primitiveArguments is null ? "null" : primitiveArguments.ToString();
+
+            // Act
+            _loggerMock.Object.LogDebugIfEnabled(message, primitiveArguments!);
+
+            // Assert
+            _loggerMock.Verify(
+                l => l.Log(
+                    It.Is<LogLevel>(level => level == LogLevel.Debug),
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((@object, type) => @object.ToString()!.Contains(expectedValue!)),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<It.IsAnyType, Exception?, string>>()
+                ),
+                Times.Once);
+        }
     }
 }

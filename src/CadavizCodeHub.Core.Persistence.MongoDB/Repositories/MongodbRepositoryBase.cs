@@ -37,8 +37,10 @@ namespace CadavizCodeHub.Core.Persistence.MongoDB.Repositories
 
         public Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
+#pragma warning disable S1905
             return _collection.Find(filter => filter.Id == id)
                               .SingleOrDefaultAsync(cancellationToken) as Task<T?>;
+#pragma warning restore S1905
         }
 
         internal protected async Task<IReadOnlyCollection<T>> GetByFilterAsync(FilterDefinition<T> filter, CancellationToken cancellationToken)

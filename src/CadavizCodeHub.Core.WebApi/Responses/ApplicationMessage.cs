@@ -7,7 +7,7 @@ namespace CadavizCodeHub.Core.WebApi.Responses
     /// </summary>
     /// <param name="Message">Message for users</param>
     /// <param name="DeveloperMessage">Message for developers</param>
-    public record ApplicationMessage
+    public record class ApplicationMessage
     {
         public string Message { get; }
         public string? DeveloperMessage { get; }

@@ -4,11 +4,9 @@ using CadavizCodeHub.Orders.Domain.Entities;
 using CadavizCodeHub.Orders.Domain.Repositories;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
-using System.Diagnostics.CodeAnalysis;
 
 namespace CadavizCodeHub.Orders.Persistence.Repositories
 {
-    [ExcludeFromCodeCoverage]
     internal class OrderRepository : MongodbRepositoryBase<Order>, IOrderReadRepository, IOrderCrudRepository
     {
         protected override string CollectionName => "order";

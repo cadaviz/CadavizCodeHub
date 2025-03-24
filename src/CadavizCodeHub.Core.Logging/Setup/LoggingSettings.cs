@@ -12,6 +12,7 @@ namespace CadavizCodeHub.Core.Logging.Setup
         public LoggingToFileSettings FileSettings { get; set; } = new LoggingToFileSettings();
     }
 
+    [ExcludeFromCodeCoverage]
     public class LoggingToFileSettings
     {
         public string Path { get; set; } = "../../logs/log.txt";
