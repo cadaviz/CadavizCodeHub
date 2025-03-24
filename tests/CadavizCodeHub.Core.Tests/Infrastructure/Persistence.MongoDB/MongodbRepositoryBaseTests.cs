@@ -241,7 +241,7 @@ namespace CadavizCodeHub.Persistence.UnitTests.Repositories
         }
 
         [Fact]
-        public void DatabaseName_ShouldBeDefault()
+        public void DatabaseName_ShouldHaveEntityName()
         {
             // Assert
             _repository.CollectionNameForTest.Should().Be("FakeEntityBase");
