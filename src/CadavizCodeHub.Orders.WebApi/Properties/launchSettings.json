@@ -1,23 +1,39 @@
 {
   "profiles": {
-    "Service": {
+    "CadavizCodeHub": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "https://localhost:11027"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DOTNET_RUNNING_IN_CONTAINER": "false"
+      }
     },
-    "Container (Dockerfile)": {
+    "Docker": {
       "commandName": "Docker",
       "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/",
       "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_HTTPS_PORTS": "8081",
-        "ASPNETCORE_HTTP_PORTS": "8080"
+        "ASPNETCORE_HTTP_PORTS": "8080",
+        "DOTNET_RUNNING_IN_CONTAINER": "true",
+        "DOCKER_DEBUG": "true",
+        "DatabaseSettings__ConnectionString": "mongodb://cadaviz-code-hub_orders_mongodb:27017/",
+        "DatabaseSettings__DatabaseName": "Cadaviz_OrderDB",
+        "DatabaseSettings__User": "",
+        "DatabaseSettings__Password": ""
+      },
+      "dockerFileRunOptions": {
+        "dockerFile": "Dockerfile",
+        "buildArgs": {
+          "ASPNETCORE_ENVIRONMENT": "Development"
+        }
       },
       "publishAllPorts": true,
-      "useSSL": true
+      "useSSL": true,
+      "httpPort": 8080,
+      "sslPort": 8081,
+      "dockerfileRunArguments": "--network=cadaviz-code-hub_network"
     }
   }
 }

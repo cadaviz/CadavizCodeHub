@@ -9,6 +9,9 @@
     <DockerfileContext>..\..</DockerfileContext>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>Documentation\CadavizCodeHub.xml</DocumentationFile>
+		<BaseOutputPath>C:\Projetos\CadavizCodeHub\bin\Debug\net9.0\</BaseOutputPath>
+		<OutDir>C:\Projetos\CadavizCodeHub\bin\Debug\net9.0\</OutDir>
+		<DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>

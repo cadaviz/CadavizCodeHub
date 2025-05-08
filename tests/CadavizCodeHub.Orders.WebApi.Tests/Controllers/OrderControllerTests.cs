@@ -115,7 +115,6 @@ namespace CadavizCodeHub.Orders.WebApi.Tests.Controllers
             okResult.Value.Should().BeOfType<OrderResponse>();
         }
 
-        // Teste para quando o pedido não é encontrado
         [Fact]
         public async Task GetOrder_ShouldReturnNotFound_WhenOrderIsNotFound()
         {

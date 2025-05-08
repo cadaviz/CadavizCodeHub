@@ -1,5 +1,7 @@
 using CadavizCodeHub.Orders.WebApi.Setup;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
@@ -16,6 +18,14 @@ namespace CadavizCodeHub.Orders.WebApi
 
             var startup = new Startup(builder.Configuration);
             startup.ConfigureServices(builder.Services);
+
+            bool.TryParse(Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER"), out bool runningInContainer);
+
+            if (runningInContainer)
+            {
+                builder.WebHost.UseKestrel();
+
+            }
 
             var app = builder.Build()!;
 

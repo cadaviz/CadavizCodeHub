@@ -1,0 +1,50 @@
+services:
+  orders-mongodb:
+    image: ${ORDERS_MONGO_IMAGE}
+    container_name: ${ORDERS_MONGO_CONTAINER_NAME}
+    ports:
+      - "${ORDERS_MONGO_PORT}:${ORDERS_MONGO_PORT}"
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=${ORDERS_MONGO_INITIAL_DATABASE_NAME}
+      - MONGO_INITDB_ROOT_USERNAME=${ORDERS_MONGO_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${ORDERS_MONGO_PASSWORD}
+    networks:
+      - cadaviz-code-hub_network
+    restart: always
+
+  orders-webapi:
+    build:
+      context: ..
+      dockerfile: src/CadavizCodeHub.Orders.WebApi/Dockerfile
+    container_name: ${ORDERS_WEBAPI_CONTAINER_NAME}
+    ports:
+      - "${ORDERS_WEBAPI_HTTP_PORT}:${ORDERS_WEBAPI_HTTP_PORT}"
+      - "${ORDERS_WEBAPI_HTTPS_PORT}:${ORDERS_WEBAPI_HTTPS_PORT}"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/https:ro
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=http://+:${ORDERS_WEBAPI_HTTP_PORT};https://+:${ORDERS_WEBAPI_HTTPS_PORT}
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/CadavizCodeHub.Orders.WebApi.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__AllowInvalid=true
+      - DatabaseSettings__ConnectionString=mongodb://${ORDERS_MONGO_CONTAINER_NAME}:${ORDERS_MONGO_PORT}/${ORDERS_MONGO_INITIAL_DATABASE_NAME}
+      - DatabaseSettings__DatabaseName=${ORDERS_MONGO_INITIAL_DATABASE_NAME}
+      - DatabaseSettings__User=${ORDERS_MONGO_USERNAME}
+      - DatabaseSettings__Password=${ORDERS_MONGO_PASSWORD}
+    depends_on:
+      - orders-mongodb
+    networks:
+      - cadaviz-code-hub_network
+    restart: always
+
+networks:
+  cadaviz-code-hub_network:
+    name: cadaviz-code-hub_network
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local

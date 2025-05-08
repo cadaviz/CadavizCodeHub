@@ -1,6 +1,7 @@
 ﻿using CadavizCodeHub.Core.WebApi.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace CadavizCodeHub.Core.WebApi.Setup
@@ -27,7 +28,13 @@ namespace CadavizCodeHub.Core.WebApi.Setup
 
         public static IApplicationBuilder ConfigureWebApi(this WebApplication app)
         {
-            app.UseHttpsRedirection();
+            bool.TryParse(Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER"), out bool runningInContainer);
+            
+            if (!runningInContainer)
+            {
+                app.UseHttpsRedirection();
+            }
+
             app.UseRouting();
             app.UseAuthorization();
 
