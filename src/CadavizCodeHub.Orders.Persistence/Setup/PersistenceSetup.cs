@@ -33,6 +33,7 @@ namespace CadavizCodeHub.Orders.Persistence.Setup
         private static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IOrderCrudRepository, OrderRepository>();
+            services.AddSingleton<IUserRepository, UserMemoryRepository>();
 
             return services;
         }
