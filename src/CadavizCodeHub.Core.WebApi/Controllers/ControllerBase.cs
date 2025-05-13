@@ -49,6 +49,18 @@ namespace CadavizCodeHub.Core.WebApi.Controllers
             return Ok(response);
         }
 
+        protected IActionResult NoContentOrNotFound(bool response)
+        {
+            if (!response)
+            {
+                var notFoundResponse = new ApplicationErrorResponse(StatusCodes.Status404NotFound, new ApplicationMessage("No resource found."));
+
+                return NotFound(notFoundResponse);
+            }
+
+            return NoContent();
+        }
+
         protected IActionResult? ValidateRequest<TValidator, TRequest>(TRequest request)
             where TValidator : ValidatorBase<TRequest>, new()
             where TRequest : IRequest
